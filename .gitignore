@@ -21,3 +21,7 @@ npm-debug.log
 /dist
 
 /prisma/data.db
+
+# local env files
+.env
+.env.local
