@@ -1,22 +1,17 @@
+
 import { Module, Provider } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PrismaClient } from '@prisma/client';
-import { GraphQLResolveInfo } from 'graphql';
-import { CreateOneUserArgs, UserCrudResolver, crudResolvers } from '../generated';
-import { setTransformArgsIntoPrismaArgs } from '../generated/helpers';
+import { crudResolvers } from '../generated';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { UserModule } from './user/user.module';
+
 
 const prisma = new PrismaClient({
     log: ['query'],
 });
 
-setTransformArgsIntoPrismaArgs((info: GraphQLResolveInfo, args: any, ctx: any) => {
-    if (info.fieldName === UserCrudResolver.prototype.createOneUser.name && ctx.req.headers.email) {
-        (args as CreateOneUserArgs).data.email = ctx.req.headers.email;
-    }
-    return args;
-});
 
 @Module({
     imports: [
@@ -28,7 +23,8 @@ setTransformArgsIntoPrismaArgs((info: GraphQLResolveInfo, args: any, ctx: any) =
             context: ({ req }) => ({ req, prisma }),
             plugins: [ApolloServerPluginLandingPageLocalDefault()],
         }),
+        UserModule,
     ],
-    providers: crudResolvers as unknown as Provider<any>[],
+    providers: [...crudResolvers] as unknown as Provider<any>[],
 })
 export class AppModule {}
