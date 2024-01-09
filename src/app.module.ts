@@ -6,6 +6,7 @@ import { crudResolvers } from '../generated';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 
 const prisma = new PrismaClient({
@@ -24,6 +25,7 @@ const prisma = new PrismaClient({
             plugins: [ApolloServerPluginLandingPageLocalDefault()],
         }),
         UserModule,
+        AuthModule,
     ],
     providers: [...crudResolvers] as unknown as Provider<any>[],
 })

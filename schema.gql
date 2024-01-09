@@ -2,6 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type JWTTokenInput {
+  access_token: String!
+}
+
 type Query {
   aggregateUser(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int): AggregateUser!
   findFirstUser(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): User
@@ -629,6 +633,7 @@ type Mutation {
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  signIn(username: String!, password: String!): JWTTokenInput!
 }
 
 type AffectedRowsOutput {
