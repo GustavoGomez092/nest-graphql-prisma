@@ -4,6 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { PrismaClient } from '@prisma/client';
 import { crudResolvers } from '../generated';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { AuthModule } from './auth/auth.module';
 //    #import-area# 
@@ -13,7 +14,6 @@ const prisma = new PrismaClient({
     log: ['query'],
 });
 
-
 @Module({
     imports: [
         GraphQLModule.forRoot<ApolloDriverConfig>({
@@ -22,7 +22,11 @@ const prisma = new PrismaClient({
             autoSchemaFile: 'schema.gql',
             playground: false,
             context: ({ req }) => ({ req, prisma }),
-            plugins: [ApolloServerPluginLandingPageLocalDefault()],
+            plugins: [
+                process.env.NODE_ENV === 'production'
+                ? ApolloServerPluginLandingPageDisabled()
+                : ApolloServerPluginLandingPageLocalDefault()
+            ],
         }),
         AuthModule,  
         UserModule,
