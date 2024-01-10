@@ -35,8 +35,8 @@ Just follow the prompts of the generator.
 ## .env file
 | key            |      value                                                                          |
 |----------------|:-----------------------------------------------------------------------------------:|
-| DATABASE_URL   |  postgresql://postgres:password@db.provider.co:5432/postgres                        |
-| JWT_SECRET     |  ```node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"```|
+| DATABASE_URL   |  ```postgresql://postgres:password@db.provider.co:5432/postgres```                  |
+| JWT_SECRET     |  ```node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"```     |
 | JWT_EXPIRES_IN | 1h                                                                                  |
 
 ## Considerations
