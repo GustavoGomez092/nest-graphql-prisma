@@ -5,9 +5,9 @@ import { PrismaClient } from '@prisma/client';
 import { crudResolvers } from '../generated';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-
+//    #import-area# 
+import { UserModule } from './user/user.module';
 
 const prisma = new PrismaClient({
     log: ['query'],
@@ -24,8 +24,8 @@ const prisma = new PrismaClient({
             context: ({ req }) => ({ req, prisma }),
             plugins: [ApolloServerPluginLandingPageLocalDefault()],
         }),
+        AuthModule,  
         UserModule,
-        AuthModule,
     ],
     providers: [...crudResolvers] as unknown as Provider<any>[],
 })

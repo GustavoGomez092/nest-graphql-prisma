@@ -1,0 +1,14 @@
+import { Injectable } from '@nestjs/common';
+import { #action-name#Args, #action-name#Resolver } from 'generated';
+import { GraphQLResolveInfo } from 'graphql';
+
+
+@Injectable()
+export class #action-name# extends #action-name#Resolver {
+  async #action-name-lower# (ctx: any, info: GraphQLResolveInfo, args: #action-name#Args) {
+    console.log('----------Before #action-name#----------');
+    console.log('insert your custom business logic here');
+    return super.#action-name-lower#(ctx, info, args);
+  }
+}
+

@@ -1,0 +1,19 @@
+import { Args, Context, Info, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { GraphQLResolveInfo } from 'graphql';
+import { #model#, #model#CrudResolver } from 'generated';
+// #import-area#
+
+
+@Resolver(#model#)
+export class #model#Resolver extends #model#CrudResolver {
+
+    constructor(
+        // #constructor-area#
+        
+    ) {
+        super();
+    }
+
+    // #methods-area#
+
+}
