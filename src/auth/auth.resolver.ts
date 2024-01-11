@@ -12,7 +12,7 @@ export class AuthResolver {
   
   @Public()
   @Mutation(() => JWTTokenInput)
-  async signIn(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args('username') username: string, @Args('password') password: string): Promise<JWTTokenInput> {
-    return this.authService.signIn(username, password);
+  async signIn(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args('email') email: string, @Args('password') password: string): Promise<JWTTokenInput> {
+    return this.authService.signIn(email, password);
   }
 }

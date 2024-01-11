@@ -12,8 +12,12 @@ export class User {
   })
   id!: number;
 
+  /**
+   * @zod.email({ message: \"please enter a valid email\" })
+   */
   @Field(_type => String, {
-    nullable: false
+    nullable: false,
+    description: "@zod.email({ message: \"please enter a valid email\" })"
   })
   email!: string;
 

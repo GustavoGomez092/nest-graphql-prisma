@@ -16,8 +16,19 @@ generator typegraphql {
   emitIsAbstract = true
 }
 
+generator zod {
+  provider              = "zod-prisma"
+  output                = "../generated/zod-schemas"
+  relationModel         = true
+  modelCase             = "PascalCase"
+  modelSuffix           = "Model"
+  imports               = null
+  prismaJsonNullability = false
+}
+
 model User {
   id          Int       @id @default(autoincrement())
+  /// @zod.email({ message: "please enter a valid email" })
   email       String    @unique
   username    String?
   password    String

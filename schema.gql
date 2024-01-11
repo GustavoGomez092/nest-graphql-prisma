@@ -290,6 +290,8 @@ input UserWhereUniqueInput {
 
 type User {
   id: Int!
+
+  """@zod.email({ message: "please enter a valid email" })"""
   email: String!
   username: String
   password: String!
@@ -633,7 +635,7 @@ type Mutation {
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  signIn(username: String!, password: String!): JWTTokenInput!
+  signIn(email: String!, password: String!): JWTTokenInput!
 }
 
 type AffectedRowsOutput {
