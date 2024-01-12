@@ -27,17 +27,7 @@ export class UserOrderByWithRelationInput {
   @Field(_type => SortOrderInput, {
     nullable: true
   })
-  firstName?: SortOrderInput | undefined;
-
-  @Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  lastName?: SortOrderInput | undefined;
-
-  @Field(_type => SortOrder, {
-    nullable: true
-  })
-  lastLogin?: "asc" | "desc" | undefined;
+  name?: SortOrderInput | undefined;
 
   @Field(_type => SortOrder, {
     nullable: true
@@ -47,10 +37,15 @@ export class UserOrderByWithRelationInput {
   @Field(_type => SortOrder, {
     nullable: true
   })
-  isActive?: "asc" | "desc" | undefined;
+  verified?: "asc" | "desc" | undefined;
 
   @Field(_type => SortOrder, {
     nullable: true
   })
-  dateJoined?: "asc" | "desc" | undefined;
+  createdAt?: "asc" | "desc" | undefined;
+
+  @Field(_type => SortOrder, {
+    nullable: true
+  })
+  updatedAt?: "asc" | "desc" | undefined;
 }

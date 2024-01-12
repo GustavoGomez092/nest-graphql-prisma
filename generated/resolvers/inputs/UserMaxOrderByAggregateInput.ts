@@ -26,17 +26,7 @@ export class UserMaxOrderByAggregateInput {
   @Field(_type => SortOrder, {
     nullable: true
   })
-  firstName?: "asc" | "desc" | undefined;
-
-  @Field(_type => SortOrder, {
-    nullable: true
-  })
-  lastName?: "asc" | "desc" | undefined;
-
-  @Field(_type => SortOrder, {
-    nullable: true
-  })
-  lastLogin?: "asc" | "desc" | undefined;
+  name?: "asc" | "desc" | undefined;
 
   @Field(_type => SortOrder, {
     nullable: true
@@ -46,10 +36,15 @@ export class UserMaxOrderByAggregateInput {
   @Field(_type => SortOrder, {
     nullable: true
   })
-  isActive?: "asc" | "desc" | undefined;
+  verified?: "asc" | "desc" | undefined;
 
   @Field(_type => SortOrder, {
     nullable: true
   })
-  dateJoined?: "asc" | "desc" | undefined;
+  createdAt?: "asc" | "desc" | undefined;
+
+  @Field(_type => SortOrder, {
+    nullable: true
+  })
+  updatedAt?: "asc" | "desc" | undefined;
 }

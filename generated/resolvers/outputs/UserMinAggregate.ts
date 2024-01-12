@@ -25,17 +25,7 @@ export class UserMinAggregate {
   @Field(_type => String, {
     nullable: true
   })
-  firstName!: string | null;
-
-  @Field(_type => String, {
-    nullable: true
-  })
-  lastName!: string | null;
-
-  @Field(_type => Date, {
-    nullable: true
-  })
-  lastLogin!: Date | null;
+  name!: string | null;
 
   @Field(_type => Boolean, {
     nullable: true
@@ -45,10 +35,15 @@ export class UserMinAggregate {
   @Field(_type => Boolean, {
     nullable: true
   })
-  isActive!: boolean | null;
+  verified!: boolean | null;
 
   @Field(_type => Date, {
     nullable: true
   })
-  dateJoined!: Date | null;
+  createdAt!: Date | null;
+
+  @Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt!: Date | null;
 }

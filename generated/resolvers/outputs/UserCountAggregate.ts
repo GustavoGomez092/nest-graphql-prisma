@@ -25,17 +25,7 @@ export class UserCountAggregate {
   @Field(_type => Int, {
     nullable: false
   })
-  firstName!: number;
-
-  @Field(_type => Int, {
-    nullable: false
-  })
-  lastName!: number;
-
-  @Field(_type => Int, {
-    nullable: false
-  })
-  lastLogin!: number;
+  name!: number;
 
   @Field(_type => Int, {
     nullable: false
@@ -45,12 +35,17 @@ export class UserCountAggregate {
   @Field(_type => Int, {
     nullable: false
   })
-  isActive!: number;
+  verified!: number;
 
   @Field(_type => Int, {
     nullable: false
   })
-  dateJoined!: number;
+  createdAt!: number;
+
+  @Field(_type => Int, {
+    nullable: false
+  })
+  updatedAt!: number;
 
   @Field(_type => Int, {
     nullable: false

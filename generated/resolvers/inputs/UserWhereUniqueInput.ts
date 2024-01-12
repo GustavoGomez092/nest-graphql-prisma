@@ -45,17 +45,7 @@ export class UserWhereUniqueInput {
   @Field(_type => StringNullableFilter, {
     nullable: true
   })
-  firstName?: StringNullableFilter | undefined;
-
-  @Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  lastName?: StringNullableFilter | undefined;
-
-  @Field(_type => DateTimeFilter, {
-    nullable: true
-  })
-  lastLogin?: DateTimeFilter | undefined;
+  name?: StringNullableFilter | undefined;
 
   @Field(_type => BoolFilter, {
     nullable: true
@@ -65,10 +55,15 @@ export class UserWhereUniqueInput {
   @Field(_type => BoolFilter, {
     nullable: true
   })
-  isActive?: BoolFilter | undefined;
+  verified?: BoolFilter | undefined;
 
   @Field(_type => DateTimeFilter, {
     nullable: true
   })
-  dateJoined?: DateTimeFilter | undefined;
+  createdAt?: DateTimeFilter | undefined;
+
+  @Field(_type => DateTimeFilter, {
+    nullable: true
+  })
+  updatedAt?: DateTimeFilter | undefined;
 }

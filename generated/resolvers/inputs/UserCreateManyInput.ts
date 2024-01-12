@@ -25,17 +25,7 @@ export class UserCreateManyInput {
   @Field(_type => String, {
     nullable: true
   })
-  firstName?: string | undefined;
-
-  @Field(_type => String, {
-    nullable: true
-  })
-  lastName?: string | undefined;
-
-  @Field(_type => Date, {
-    nullable: true
-  })
-  lastLogin?: Date | undefined;
+  name?: string | undefined;
 
   @Field(_type => Boolean, {
     nullable: true
@@ -45,10 +35,15 @@ export class UserCreateManyInput {
   @Field(_type => Boolean, {
     nullable: true
   })
-  isActive?: boolean | undefined;
+  verified?: boolean | undefined;
 
   @Field(_type => Date, {
     nullable: true
   })
-  dateJoined?: Date | undefined;
+  createdAt?: Date | undefined;
+
+  @Field(_type => Date, {
+    nullable: true
+  })
+  updatedAt?: Date | undefined;
 }

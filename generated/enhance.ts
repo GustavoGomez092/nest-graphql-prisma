@@ -185,7 +185,7 @@ function applyTypeClassEnhanceConfig<
 }
 
 const modelsInfo = {
-  User: ["id", "email", "firstName", "lastName", "isAdmin", "isActive"]
+  User: ["id", "email", "name", "isAdmin", "verified"]
 };
 
 type ModelNames = keyof typeof models;
@@ -225,11 +225,11 @@ export function applyModelsEnhanceMap(modelsEnhanceMap: ModelsEnhanceMap) {
 
 const outputsInfo = {
   AggregateUser: ["_count", "_min", "_max"],
-  UserGroupBy: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined", "_count", "_min", "_max"],
+  UserGroupBy: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt", "_count", "_min", "_max"],
   AffectedRowsOutput: ["count"],
-  UserCountAggregate: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined", "_all"],
-  UserMinAggregate: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserMaxAggregate: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"]
+  UserCountAggregate: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt", "_all"],
+  UserMinAggregate: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserMaxAggregate: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"]
 };
 
 type OutputTypesNames = keyof typeof outputTypes;
@@ -270,41 +270,41 @@ export function applyOutputTypesEnhanceMap(
 }
 
 const inputsInfo = {
-  UserWhereInput: ["AND", "OR", "NOT", "id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserOrderByWithRelationInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserWhereUniqueInput: ["id", "email", "AND", "OR", "NOT", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserOrderByWithAggregationInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined", "_count", "_max", "_min"],
-  UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserCreateInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserUpdateInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserCreateManyInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserUpdateManyMutationInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
+  UserWhereInput: ["AND", "OR", "NOT", "id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserOrderByWithRelationInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserWhereUniqueInput: ["id", "email", "AND", "OR", "NOT", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserOrderByWithAggregationInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt", "_count", "_max", "_min"],
+  UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserCreateInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserUpdateInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserCreateManyInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserUpdateManyMutationInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
   StringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
   StringNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
-  DateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   BoolFilter: ["equals", "not"],
+  DateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   SortOrderInput: ["sort", "nulls"],
-  UserCountOrderByAggregateInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserMaxOrderByAggregateInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
-  UserMinOrderByAggregateInput: ["id", "email", "password", "firstName", "lastName", "lastLogin", "isAdmin", "isActive", "dateJoined"],
+  UserCountOrderByAggregateInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserMaxOrderByAggregateInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
+  UserMinOrderByAggregateInput: ["id", "email", "password", "name", "isAdmin", "verified", "createdAt", "updatedAt"],
   StringWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not", "_count", "_min", "_max"],
   StringNullableWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not", "_count", "_min", "_max"],
-  DateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"],
   BoolWithAggregatesFilter: ["equals", "not", "_count", "_min", "_max"],
+  DateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"],
   StringFieldUpdateOperationsInput: ["set"],
   NullableStringFieldUpdateOperationsInput: ["set"],
-  DateTimeFieldUpdateOperationsInput: ["set"],
   BoolFieldUpdateOperationsInput: ["set"],
+  DateTimeFieldUpdateOperationsInput: ["set"],
   NestedStringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
   NestedStringNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
-  NestedDateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedBoolFilter: ["equals", "not"],
+  NestedDateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedStringWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not", "_count", "_min", "_max"],
   NestedIntFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedStringNullableWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not", "_count", "_min", "_max"],
   NestedIntNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
-  NestedDateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"],
-  NestedBoolWithAggregatesFilter: ["equals", "not", "_count", "_min", "_max"]
+  NestedBoolWithAggregatesFilter: ["equals", "not", "_count", "_min", "_max"],
+  NestedDateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"]
 };
 
 type InputTypesNames = keyof typeof inputTypes;

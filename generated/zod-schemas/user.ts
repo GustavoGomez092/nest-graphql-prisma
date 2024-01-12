@@ -8,16 +8,15 @@ export const UserModel = z.object({
    * @TypeGraphQL.omit(output: true)
    */
   password: z.string(),
-  firstName: z.string().nullish(),
-  lastName: z.string().nullish(),
-  /**
-   * @TypeGraphQL.omit(output: true)
-   */
-  lastLogin: z.date(),
+  name: z.string().nullish(),
   isAdmin: z.boolean(),
-  isActive: z.boolean(),
+  verified: z.boolean(),
   /**
    * @TypeGraphQL.omit(output: true)
    */
-  dateJoined: z.date(),
+  createdAt: z.date(),
+  /**
+   * @TypeGraphQL.omit(output: true)
+   */
+  updatedAt: z.date(),
 })

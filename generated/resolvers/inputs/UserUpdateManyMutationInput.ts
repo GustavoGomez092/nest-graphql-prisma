@@ -29,17 +29,7 @@ export class UserUpdateManyMutationInput {
   @Field(_type => NullableStringFieldUpdateOperationsInput, {
     nullable: true
   })
-  firstName?: NullableStringFieldUpdateOperationsInput | undefined;
-
-  @Field(_type => NullableStringFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  lastName?: NullableStringFieldUpdateOperationsInput | undefined;
-
-  @Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  lastLogin?: DateTimeFieldUpdateOperationsInput | undefined;
+  name?: NullableStringFieldUpdateOperationsInput | undefined;
 
   @Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
@@ -49,10 +39,15 @@ export class UserUpdateManyMutationInput {
   @Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  isActive?: BoolFieldUpdateOperationsInput | undefined;
+  verified?: BoolFieldUpdateOperationsInput | undefined;
 
   @Field(_type => DateTimeFieldUpdateOperationsInput, {
     nullable: true
   })
-  dateJoined?: DateTimeFieldUpdateOperationsInput | undefined;
+  createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @Field(_type => DateTimeFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 }

@@ -26,14 +26,7 @@ export class User {
   @Field(_type => String, {
     nullable: true
   })
-  firstName?: string | null;
-
-  @Field(_type => String, {
-    nullable: true
-  })
-  lastName?: string | null;
-
-  lastLogin?: Date;
+  name?: string | null;
 
   @Field(_type => Boolean, {
     nullable: false
@@ -43,7 +36,9 @@ export class User {
   @Field(_type => Boolean, {
     nullable: false
   })
-  isActive!: boolean;
+  verified!: boolean;
 
-  dateJoined?: Date;
+  createdAt?: Date;
+
+  updatedAt?: Date;
 }

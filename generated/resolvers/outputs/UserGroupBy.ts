@@ -28,17 +28,7 @@ export class UserGroupBy {
   @Field(_type => String, {
     nullable: true
   })
-  firstName!: string | null;
-
-  @Field(_type => String, {
-    nullable: true
-  })
-  lastName!: string | null;
-
-  @Field(_type => Date, {
-    nullable: false
-  })
-  lastLogin!: Date;
+  name!: string | null;
 
   @Field(_type => Boolean, {
     nullable: false
@@ -48,12 +38,17 @@ export class UserGroupBy {
   @Field(_type => Boolean, {
     nullable: false
   })
-  isActive!: boolean;
+  verified!: boolean;
 
   @Field(_type => Date, {
     nullable: false
   })
-  dateJoined!: Date;
+  createdAt!: Date;
+
+  @Field(_type => Date, {
+    nullable: false
+  })
+  updatedAt!: Date;
 
   @Field(_type => UserCountAggregate, {
     nullable: true

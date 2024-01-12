@@ -4,12 +4,11 @@ export enum UserScalarFieldEnum {
   id = "id",
   email = "email",
   password = "password",
-  firstName = "firstName",
-  lastName = "lastName",
-  lastLogin = "lastLogin",
+  name = "name",
   isAdmin = "isAdmin",
-  isActive = "isActive",
-  dateJoined = "dateJoined"
+  verified = "verified",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt"
 }
 registerEnumType(UserScalarFieldEnum, {
   name: "UserScalarFieldEnum",

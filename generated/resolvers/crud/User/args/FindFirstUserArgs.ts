@@ -35,5 +35,5 @@ export class FindFirstUserArgs {
   @Field(_type => [UserScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "email" | "password" | "firstName" | "lastName" | "lastLogin" | "isAdmin" | "isActive" | "dateJoined"> | undefined;
+  distinct?: Array<"id" | "email" | "password" | "name" | "isAdmin" | "verified" | "createdAt" | "updatedAt"> | undefined;
 }

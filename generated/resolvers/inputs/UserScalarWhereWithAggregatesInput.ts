@@ -44,17 +44,7 @@ export class UserScalarWhereWithAggregatesInput {
   @Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  firstName?: StringNullableWithAggregatesFilter | undefined;
-
-  @Field(_type => StringNullableWithAggregatesFilter, {
-    nullable: true
-  })
-  lastName?: StringNullableWithAggregatesFilter | undefined;
-
-  @Field(_type => DateTimeWithAggregatesFilter, {
-    nullable: true
-  })
-  lastLogin?: DateTimeWithAggregatesFilter | undefined;
+  name?: StringNullableWithAggregatesFilter | undefined;
 
   @Field(_type => BoolWithAggregatesFilter, {
     nullable: true
@@ -64,10 +54,15 @@ export class UserScalarWhereWithAggregatesInput {
   @Field(_type => BoolWithAggregatesFilter, {
     nullable: true
   })
-  isActive?: BoolWithAggregatesFilter | undefined;
+  verified?: BoolWithAggregatesFilter | undefined;
 
   @Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true
   })
-  dateJoined?: DateTimeWithAggregatesFilter | undefined;
+  createdAt?: DateTimeWithAggregatesFilter | undefined;
+
+  @Field(_type => DateTimeWithAggregatesFilter, {
+    nullable: true
+  })
+  updatedAt?: DateTimeWithAggregatesFilter | undefined;
 }

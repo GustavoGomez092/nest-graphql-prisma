@@ -23,8 +23,7 @@ export class signUp {
             message: 'Passwords do not match',
           }),
         confirmPassword: z.string().min(8).max(20),
-        firstName: z.string(),
-        lastName: z.string(),
+        name: z.string(),
       })
       .required();
 
@@ -49,8 +48,7 @@ export class signUp {
       data: {
         email: input.email,
         password: input.password,
-        firstName: input.firstName,
-        lastName: input.lastName,
+        name: input.name,
       },
     });
   }
