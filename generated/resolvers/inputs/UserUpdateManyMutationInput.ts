@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
+import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
@@ -31,10 +32,10 @@ export class UserUpdateManyMutationInput {
   })
   name?: NullableStringFieldUpdateOperationsInput | undefined;
 
-  @Field(_type => BoolFieldUpdateOperationsInput, {
+  @Field(_type => EnumRoleFieldUpdateOperationsInput, {
     nullable: true
   })
-  isAdmin?: BoolFieldUpdateOperationsInput | undefined;
+  role?: EnumRoleFieldUpdateOperationsInput | undefined;
 
   @Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true

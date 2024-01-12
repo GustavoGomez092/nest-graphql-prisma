@@ -1,5 +1,6 @@
 import * as z from "zod"
 import * as imports from "../../prisma/null"
+import { Role } from "@prisma/client"
 
 export const UserModel = z.object({
   id: z.string(),
@@ -9,7 +10,7 @@ export const UserModel = z.object({
    */
   password: z.string(),
   name: z.string().nullish(),
-  isAdmin: z.boolean(),
+  role: z.nativeEnum(Role),
   verified: z.boolean(),
   /**
    * @TypeGraphQL.omit(output: true)

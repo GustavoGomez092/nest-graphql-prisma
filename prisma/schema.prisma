@@ -33,10 +33,15 @@ model User {
   /// @TypeGraphQL.omit(output: true)
   password  String
   name      String?
-  isAdmin   Boolean  @default(false) @map("is_admin")
+  role      Role     @default(USER)
   verified  Boolean  @default(false)
   /// @TypeGraphQL.omit(output: true)
   createdAt DateTime @default(now()) @map("created_at")
   /// @TypeGraphQL.omit(output: true)
   updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+enum Role {
+  USER
+  ADMIN
 }

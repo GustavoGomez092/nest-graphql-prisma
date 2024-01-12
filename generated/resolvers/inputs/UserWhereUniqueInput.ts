@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
+import { EnumRoleFilter } from "../inputs/EnumRoleFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { UserWhereInput } from "../inputs/UserWhereInput";
@@ -47,10 +48,10 @@ export class UserWhereUniqueInput {
   })
   name?: StringNullableFilter | undefined;
 
-  @Field(_type => BoolFilter, {
+  @Field(_type => EnumRoleFilter, {
     nullable: true
   })
-  isAdmin?: BoolFilter | undefined;
+  role?: EnumRoleFilter | undefined;
 
   @Field(_type => BoolFilter, {
     nullable: true

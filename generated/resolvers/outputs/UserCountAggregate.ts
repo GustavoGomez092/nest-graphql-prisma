@@ -30,7 +30,7 @@ export class UserCountAggregate {
   @Field(_type => Int, {
     nullable: false
   })
-  isAdmin!: number;
+  role!: number;
 
   @Field(_type => Int, {
     nullable: false

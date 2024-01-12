@@ -2,6 +2,7 @@ import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutati
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { Role } from "../../enums/Role";
 
 @ObjectType("UserMinAggregate", {
   isAbstract: true
@@ -27,10 +28,10 @@ export class UserMinAggregate {
   })
   name!: string | null;
 
-  @Field(_type => Boolean, {
+  @Field(_type => Role, {
     nullable: true
   })
-  isAdmin!: boolean | null;
+  role!: "USER" | "ADMIN" | null;
 
   @Field(_type => Boolean, {
     nullable: true

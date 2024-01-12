@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { UserCountAggregate } from "../outputs/UserCountAggregate";
 import { UserMaxAggregate } from "../outputs/UserMaxAggregate";
 import { UserMinAggregate } from "../outputs/UserMinAggregate";
+import { Role } from "../../enums/Role";
 
 @ObjectType("UserGroupBy", {
   isAbstract: true
@@ -30,10 +31,10 @@ export class UserGroupBy {
   })
   name!: string | null;
 
-  @Field(_type => Boolean, {
+  @Field(_type => Role, {
     nullable: false
   })
-  isAdmin!: boolean;
+  role!: "USER" | "ADMIN";
 
   @Field(_type => Boolean, {
     nullable: false

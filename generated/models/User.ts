@@ -2,6 +2,7 @@ import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutati
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Role } from "../enums/Role";
 
 @ObjectType("User", {
   isAbstract: true
@@ -28,10 +29,10 @@ export class User {
   })
   name?: string | null;
 
-  @Field(_type => Boolean, {
+  @Field(_type => Role, {
     nullable: false
   })
-  isAdmin!: boolean;
+  role!: "USER" | "ADMIN";
 
   @Field(_type => Boolean, {
     nullable: false

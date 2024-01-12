@@ -31,7 +31,7 @@ export class UserMaxOrderByAggregateInput {
   @Field(_type => SortOrder, {
     nullable: true
   })
-  isAdmin?: "asc" | "desc" | undefined;
+  role?: "asc" | "desc" | undefined;
 
   @Field(_type => SortOrder, {
     nullable: true
