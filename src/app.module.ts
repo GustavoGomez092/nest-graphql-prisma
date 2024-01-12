@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 
 const prisma = new PrismaClient({
     log: ['query'],
+    errorFormat: 'minimal'
 });
 
 @Module({

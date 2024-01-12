@@ -18,8 +18,6 @@ type Query {
 
 type AggregateUser {
   _count: UserCountAggregate
-  _avg: UserAvgAggregate
-  _sum: UserSumAggregate
   _min: UserMinAggregate
   _max: UserMaxAggregate
 }
@@ -27,40 +25,26 @@ type AggregateUser {
 type UserCountAggregate {
   id: Int!
   email: Int!
-  username: Int!
   password: Int!
   firstName: Int!
   lastName: Int!
   lastLogin: Int!
-  isSuperuser: Int!
-  isStaff: Int!
+  isAdmin: Int!
   isActive: Int!
   dateJoined: Int!
-  dateOfBirth: Int!
   _all: Int!
 }
 
-type UserAvgAggregate {
-  id: Float
-}
-
-type UserSumAggregate {
-  id: Int
-}
-
 type UserMinAggregate {
-  id: Int
+  id: String
   email: String
-  username: String
   password: String
   firstName: String
   lastName: String
   lastLogin: DateTime
-  isSuperuser: Boolean
-  isStaff: Boolean
+  isAdmin: Boolean
   isActive: Boolean
   dateJoined: DateTime
-  dateOfBirth: DateTime
 }
 
 """
@@ -69,58 +53,30 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type UserMaxAggregate {
-  id: Int
+  id: String
   email: String
-  username: String
   password: String
   firstName: String
   lastName: String
   lastLogin: DateTime
-  isSuperuser: Boolean
-  isStaff: Boolean
+  isAdmin: Boolean
   isActive: Boolean
   dateJoined: DateTime
-  dateOfBirth: DateTime
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
-  id: IntFilter
+  id: StringFilter
   email: StringFilter
-  username: StringNullableFilter
   password: StringFilter
   firstName: StringNullableFilter
   lastName: StringNullableFilter
   lastLogin: DateTimeFilter
-  isSuperuser: BoolFilter
-  isStaff: BoolFilter
+  isAdmin: BoolFilter
   isActive: BoolFilter
   dateJoined: DateTimeFilter
-  dateOfBirth: DateTimeNullableFilter
-}
-
-input IntFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntFilter
-}
-
-input NestedIntFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntFilter
 }
 
 input StringFilter {
@@ -218,41 +174,16 @@ input NestedBoolFilter {
   not: NestedBoolFilter
 }
 
-input DateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeNullableFilter
-}
-
-input NestedDateTimeNullableFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeNullableFilter
-}
-
 input UserOrderByWithRelationInput {
   id: SortOrder
   email: SortOrder
-  username: SortOrderInput
   password: SortOrder
   firstName: SortOrderInput
   lastName: SortOrderInput
   lastLogin: SortOrder
-  isSuperuser: SortOrder
-  isStaff: SortOrder
+  isAdmin: SortOrder
   isActive: SortOrder
   dateJoined: SortOrder
-  dateOfBirth: SortOrderInput
 }
 
 enum SortOrder {
@@ -271,71 +202,54 @@ enum NullsOrder {
 }
 
 input UserWhereUniqueInput {
-  id: Int
+  id: String
   email: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
-  username: StringNullableFilter
   password: StringFilter
   firstName: StringNullableFilter
   lastName: StringNullableFilter
   lastLogin: DateTimeFilter
-  isSuperuser: BoolFilter
-  isStaff: BoolFilter
+  isAdmin: BoolFilter
   isActive: BoolFilter
   dateJoined: DateTimeFilter
-  dateOfBirth: DateTimeNullableFilter
 }
 
 type User {
-  id: Int!
+  id: String!
 
   """@zod.email({ message: "please enter a valid email" })"""
   email: String!
-  username: String
-  password: String!
   firstName: String
   lastName: String
-  lastLogin: DateTime!
-  isSuperuser: Boolean!
-  isStaff: Boolean!
+  isAdmin: Boolean!
   isActive: Boolean!
-  dateJoined: DateTime!
-  dateOfBirth: DateTime
 }
 
 enum UserScalarFieldEnum {
   id
   email
-  username
   password
   firstName
   lastName
   lastLogin
-  isSuperuser
-  isStaff
+  isAdmin
   isActive
   dateJoined
-  dateOfBirth
 }
 
 type UserGroupBy {
-  id: Int!
+  id: String!
   email: String!
-  username: String
   password: String!
   firstName: String
   lastName: String
   lastLogin: DateTime!
-  isSuperuser: Boolean!
-  isStaff: Boolean!
+  isAdmin: Boolean!
   isActive: Boolean!
   dateJoined: DateTime!
-  dateOfBirth: DateTime
   _count: UserCountAggregate
-  _avg: UserAvgAggregate
-  _sum: UserSumAggregate
   _min: UserMinAggregate
   _max: UserMaxAggregate
 }
@@ -343,135 +257,67 @@ type UserGroupBy {
 input UserOrderByWithAggregationInput {
   id: SortOrder
   email: SortOrder
-  username: SortOrderInput
   password: SortOrder
   firstName: SortOrderInput
   lastName: SortOrderInput
   lastLogin: SortOrder
-  isSuperuser: SortOrder
-  isStaff: SortOrder
+  isAdmin: SortOrder
   isActive: SortOrder
   dateJoined: SortOrder
-  dateOfBirth: SortOrderInput
   _count: UserCountOrderByAggregateInput
-  _avg: UserAvgOrderByAggregateInput
   _max: UserMaxOrderByAggregateInput
   _min: UserMinOrderByAggregateInput
-  _sum: UserSumOrderByAggregateInput
 }
 
 input UserCountOrderByAggregateInput {
   id: SortOrder
   email: SortOrder
-  username: SortOrder
   password: SortOrder
   firstName: SortOrder
   lastName: SortOrder
   lastLogin: SortOrder
-  isSuperuser: SortOrder
-  isStaff: SortOrder
+  isAdmin: SortOrder
   isActive: SortOrder
   dateJoined: SortOrder
-  dateOfBirth: SortOrder
-}
-
-input UserAvgOrderByAggregateInput {
-  id: SortOrder
 }
 
 input UserMaxOrderByAggregateInput {
   id: SortOrder
   email: SortOrder
-  username: SortOrder
   password: SortOrder
   firstName: SortOrder
   lastName: SortOrder
   lastLogin: SortOrder
-  isSuperuser: SortOrder
-  isStaff: SortOrder
+  isAdmin: SortOrder
   isActive: SortOrder
   dateJoined: SortOrder
-  dateOfBirth: SortOrder
 }
 
 input UserMinOrderByAggregateInput {
   id: SortOrder
   email: SortOrder
-  username: SortOrder
   password: SortOrder
   firstName: SortOrder
   lastName: SortOrder
   lastLogin: SortOrder
-  isSuperuser: SortOrder
-  isStaff: SortOrder
+  isAdmin: SortOrder
   isActive: SortOrder
   dateJoined: SortOrder
-  dateOfBirth: SortOrder
-}
-
-input UserSumOrderByAggregateInput {
-  id: SortOrder
 }
 
 input UserScalarWhereWithAggregatesInput {
   AND: [UserScalarWhereWithAggregatesInput!]
   OR: [UserScalarWhereWithAggregatesInput!]
   NOT: [UserScalarWhereWithAggregatesInput!]
-  id: IntWithAggregatesFilter
+  id: StringWithAggregatesFilter
   email: StringWithAggregatesFilter
-  username: StringNullableWithAggregatesFilter
   password: StringWithAggregatesFilter
   firstName: StringNullableWithAggregatesFilter
   lastName: StringNullableWithAggregatesFilter
   lastLogin: DateTimeWithAggregatesFilter
-  isSuperuser: BoolWithAggregatesFilter
-  isStaff: BoolWithAggregatesFilter
+  isAdmin: BoolWithAggregatesFilter
   isActive: BoolWithAggregatesFilter
   dateJoined: DateTimeWithAggregatesFilter
-  dateOfBirth: DateTimeNullableWithAggregatesFilter
-}
-
-input IntWithAggregatesFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntWithAggregatesFilter
-  _count: NestedIntFilter
-  _avg: NestedFloatFilter
-  _sum: NestedIntFilter
-  _min: NestedIntFilter
-  _max: NestedIntFilter
-}
-
-input NestedIntWithAggregatesFilter {
-  equals: Int
-  in: [Int!]
-  notIn: [Int!]
-  lt: Int
-  lte: Int
-  gt: Int
-  gte: Int
-  not: NestedIntWithAggregatesFilter
-  _count: NestedIntFilter
-  _avg: NestedFloatFilter
-  _sum: NestedIntFilter
-  _min: NestedIntFilter
-  _max: NestedIntFilter
-}
-
-input NestedFloatFilter {
-  equals: Float
-  in: [Float!]
-  notIn: [Float!]
-  lt: Float
-  lte: Float
-  gt: Float
-  gte: Float
-  not: NestedFloatFilter
 }
 
 input StringWithAggregatesFilter {
@@ -507,6 +353,17 @@ input NestedStringWithAggregatesFilter {
   _count: NestedIntFilter
   _min: NestedStringFilter
   _max: NestedStringFilter
+}
+
+input NestedIntFilter {
+  equals: Int
+  in: [Int!]
+  notIn: [Int!]
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: NestedIntFilter
 }
 
 input StringNullableWithAggregatesFilter {
@@ -599,34 +456,6 @@ input NestedBoolWithAggregatesFilter {
   _max: NestedBoolFilter
 }
 
-input DateTimeNullableWithAggregatesFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeNullableWithAggregatesFilter
-  _count: NestedIntNullableFilter
-  _min: NestedDateTimeNullableFilter
-  _max: NestedDateTimeNullableFilter
-}
-
-input NestedDateTimeNullableWithAggregatesFilter {
-  equals: DateTime
-  in: [DateTime!]
-  notIn: [DateTime!]
-  lt: DateTime
-  lte: DateTime
-  gt: DateTime
-  gte: DateTime
-  not: NestedDateTimeNullableWithAggregatesFilter
-  _count: NestedIntNullableFilter
-  _min: NestedDateTimeNullableFilter
-  _max: NestedDateTimeNullableFilter
-}
-
 type Mutation {
   createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createOneUser(data: UserCreateInput!): User!
@@ -635,7 +464,8 @@ type Mutation {
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   upsertOneUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  signIn(email: String!, password: String!): JWTTokenInput!
+  signIn(input: SignInInput!): JWTTokenInput!
+  signUp(input: SignupInput!): User!
 }
 
 type AffectedRowsOutput {
@@ -643,46 +473,39 @@ type AffectedRowsOutput {
 }
 
 input UserCreateManyInput {
-  id: Int
+  id: String
   email: String!
-  username: String
   password: String!
   firstName: String
   lastName: String
   lastLogin: DateTime
-  isSuperuser: Boolean
-  isStaff: Boolean
+  isAdmin: Boolean
   isActive: Boolean
   dateJoined: DateTime
-  dateOfBirth: DateTime
 }
 
 input UserCreateInput {
+  id: String
   email: String!
-  username: String
   password: String!
   firstName: String
   lastName: String
   lastLogin: DateTime
-  isSuperuser: Boolean
-  isStaff: Boolean
+  isAdmin: Boolean
   isActive: Boolean
   dateJoined: DateTime
-  dateOfBirth: DateTime
 }
 
 input UserUpdateManyMutationInput {
+  id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
-  username: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   firstName: NullableStringFieldUpdateOperationsInput
   lastName: NullableStringFieldUpdateOperationsInput
   lastLogin: DateTimeFieldUpdateOperationsInput
-  isSuperuser: BoolFieldUpdateOperationsInput
-  isStaff: BoolFieldUpdateOperationsInput
+  isAdmin: BoolFieldUpdateOperationsInput
   isActive: BoolFieldUpdateOperationsInput
   dateJoined: DateTimeFieldUpdateOperationsInput
-  dateOfBirth: NullableDateTimeFieldUpdateOperationsInput
 }
 
 input StringFieldUpdateOperationsInput {
@@ -701,20 +524,27 @@ input BoolFieldUpdateOperationsInput {
   set: Boolean
 }
 
-input NullableDateTimeFieldUpdateOperationsInput {
-  set: DateTime
-}
-
 input UserUpdateInput {
+  id: StringFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
-  username: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   firstName: NullableStringFieldUpdateOperationsInput
   lastName: NullableStringFieldUpdateOperationsInput
   lastLogin: DateTimeFieldUpdateOperationsInput
-  isSuperuser: BoolFieldUpdateOperationsInput
-  isStaff: BoolFieldUpdateOperationsInput
+  isAdmin: BoolFieldUpdateOperationsInput
   isActive: BoolFieldUpdateOperationsInput
   dateJoined: DateTimeFieldUpdateOperationsInput
-  dateOfBirth: NullableDateTimeFieldUpdateOperationsInput
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+input SignupInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  confirmPassword: String!
 }

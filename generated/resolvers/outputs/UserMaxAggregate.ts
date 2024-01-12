@@ -7,20 +7,15 @@ import { DecimalJSScalar } from "../../scalars";
   isAbstract: true
 })
 export class UserMaxAggregate {
-  @Field(_type => Int, {
+  @Field(_type => String, {
     nullable: true
   })
-  id!: number | null;
+  id!: string | null;
 
   @Field(_type => String, {
     nullable: true
   })
   email!: string | null;
-
-  @Field(_type => String, {
-    nullable: true
-  })
-  username!: string | null;
 
   @Field(_type => String, {
     nullable: true
@@ -45,12 +40,7 @@ export class UserMaxAggregate {
   @Field(_type => Boolean, {
     nullable: true
   })
-  isSuperuser!: boolean | null;
-
-  @Field(_type => Boolean, {
-    nullable: true
-  })
-  isStaff!: boolean | null;
+  isAdmin!: boolean | null;
 
   @Field(_type => Boolean, {
     nullable: true
@@ -61,9 +51,4 @@ export class UserMaxAggregate {
     nullable: true
   })
   dateJoined!: Date | null;
-
-  @Field(_type => Date, {
-    nullable: true
-  })
-  dateOfBirth!: Date | null;
 }

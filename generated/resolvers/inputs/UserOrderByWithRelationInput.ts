@@ -19,11 +19,6 @@ export class UserOrderByWithRelationInput {
   })
   email?: "asc" | "desc" | undefined;
 
-  @Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  username?: SortOrderInput | undefined;
-
   @Field(_type => SortOrder, {
     nullable: true
   })
@@ -47,12 +42,7 @@ export class UserOrderByWithRelationInput {
   @Field(_type => SortOrder, {
     nullable: true
   })
-  isSuperuser?: "asc" | "desc" | undefined;
-
-  @Field(_type => SortOrder, {
-    nullable: true
-  })
-  isStaff?: "asc" | "desc" | undefined;
+  isAdmin?: "asc" | "desc" | undefined;
 
   @Field(_type => SortOrder, {
     nullable: true
@@ -63,9 +53,4 @@ export class UserOrderByWithRelationInput {
     nullable: true
   })
   dateJoined?: "asc" | "desc" | undefined;
-
-  @Field(_type => SortOrderInput, {
-    nullable: true
-  })
-  dateOfBirth?: SortOrderInput | undefined;
 }

@@ -8,14 +8,14 @@ import { DecimalJSScalar } from "../../scalars";
 })
 export class UserCreateInput {
   @Field(_type => String, {
+    nullable: true
+  })
+  id?: string | undefined;
+
+  @Field(_type => String, {
     nullable: false
   })
   email!: string;
-
-  @Field(_type => String, {
-    nullable: true
-  })
-  username?: string | undefined;
 
   @Field(_type => String, {
     nullable: false
@@ -40,12 +40,7 @@ export class UserCreateInput {
   @Field(_type => Boolean, {
     nullable: true
   })
-  isSuperuser?: boolean | undefined;
-
-  @Field(_type => Boolean, {
-    nullable: true
-  })
-  isStaff?: boolean | undefined;
+  isAdmin?: boolean | undefined;
 
   @Field(_type => Boolean, {
     nullable: true
@@ -56,9 +51,4 @@ export class UserCreateInput {
     nullable: true
   })
   dateJoined?: Date | undefined;
-
-  @Field(_type => Date, {
-    nullable: true
-  })
-  dateOfBirth?: Date | undefined;
 }

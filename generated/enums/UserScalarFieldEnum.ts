@@ -3,16 +3,13 @@ import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutati
 export enum UserScalarFieldEnum {
   id = "id",
   email = "email",
-  username = "username",
   password = "password",
   firstName = "firstName",
   lastName = "lastName",
   lastLogin = "lastLogin",
-  isSuperuser = "isSuperuser",
-  isStaff = "isStaff",
+  isAdmin = "isAdmin",
   isActive = "isActive",
-  dateJoined = "dateJoined",
-  dateOfBirth = "dateOfBirth"
+  dateJoined = "dateJoined"
 }
 registerEnumType(UserScalarFieldEnum, {
   name: "UserScalarFieldEnum",

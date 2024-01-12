@@ -27,19 +27,17 @@ generator zod {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
+  id         String   @id @default(uuid())
   /// @zod.email({ message: "please enter a valid email" })
-  email       String    @unique
-  username    String?
-  password    String
-  firstName   String?   @map("first_name")
-  lastName    String?   @map("last_name")
-  lastLogin   DateTime  @updatedAt @map("last_login")
-  isSuperuser Boolean   @default(false) @map("is_superuser")
-  isStaff     Boolean   @default(false) @map("is_staff")
-  isActive    Boolean   @default(false) @map("is_active")
-  dateJoined  DateTime  @default(now()) @map("date_joined")
-  dateOfBirth DateTime? @map("date_of_birth")
-
-  @@map("auth_users")
+  email      String   @unique
+  /// @TypeGraphQL.omit(output: true)
+  password   String
+  firstName  String?  @map("first_name")
+  lastName   String?  @map("last_name")
+  /// @TypeGraphQL.omit(output: true)
+  lastLogin  DateTime @updatedAt @map("last_login")
+  isAdmin    Boolean  @default(false) @map("is_admin")
+  isActive   Boolean  @default(false) @map("is_active")
+  /// @TypeGraphQL.omit(output: true)
+  dateJoined DateTime @default(now()) @map("date_joined")
 }

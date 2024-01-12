@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { jwtConstants } from './constants';
 import { JwtModule } from '@nestjs/jwt'
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthResolver } from './auth.resolver';
+import { UserModule } from 'src/user/user.module';
+import { signIn } from './use-cases/signin';
+import { signUp } from './use-cases/signup';
 
 @Module({
   imports: [
@@ -13,15 +15,17 @@ import { AuthResolver } from './auth.resolver';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
+    UserModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    AuthService,
-    AuthResolver
+    signIn,
+    signUp,
+    AuthResolver,
   ],
-  exports: [AuthService],
+  exports: [signIn, signUp],
 })
 export class AuthModule {}

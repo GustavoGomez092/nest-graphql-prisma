@@ -20,11 +20,6 @@ export class UserCountAggregate {
   @Field(_type => Int, {
     nullable: false
   })
-  username!: number;
-
-  @Field(_type => Int, {
-    nullable: false
-  })
   password!: number;
 
   @Field(_type => Int, {
@@ -45,12 +40,7 @@ export class UserCountAggregate {
   @Field(_type => Int, {
     nullable: false
   })
-  isSuperuser!: number;
-
-  @Field(_type => Int, {
-    nullable: false
-  })
-  isStaff!: number;
+  isAdmin!: number;
 
   @Field(_type => Int, {
     nullable: false
@@ -61,11 +51,6 @@ export class UserCountAggregate {
     nullable: false
   })
   dateJoined!: number;
-
-  @Field(_type => Int, {
-    nullable: false
-  })
-  dateOfBirth!: number;
 
   @Field(_type => Int, {
     nullable: false

@@ -4,8 +4,6 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
-import { DateTimeNullableFilter } from "../inputs/DateTimeNullableFilter";
-import { IntFilter } from "../inputs/IntFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 
@@ -28,20 +26,15 @@ export class UserWhereInput {
   })
   NOT?: UserWhereInput[] | undefined;
 
-  @Field(_type => IntFilter, {
+  @Field(_type => StringFilter, {
     nullable: true
   })
-  id?: IntFilter | undefined;
+  id?: StringFilter | undefined;
 
   @Field(_type => StringFilter, {
     nullable: true
   })
   email?: StringFilter | undefined;
-
-  @Field(_type => StringNullableFilter, {
-    nullable: true
-  })
-  username?: StringNullableFilter | undefined;
 
   @Field(_type => StringFilter, {
     nullable: true
@@ -66,12 +59,7 @@ export class UserWhereInput {
   @Field(_type => BoolFilter, {
     nullable: true
   })
-  isSuperuser?: BoolFilter | undefined;
-
-  @Field(_type => BoolFilter, {
-    nullable: true
-  })
-  isStaff?: BoolFilter | undefined;
+  isAdmin?: BoolFilter | undefined;
 
   @Field(_type => BoolFilter, {
     nullable: true
@@ -82,9 +70,4 @@ export class UserWhereInput {
     nullable: true
   })
   dateJoined?: DateTimeFilter | undefined;
-
-  @Field(_type => DateTimeNullableFilter, {
-    nullable: true
-  })
-  dateOfBirth?: DateTimeNullableFilter | undefined;
 }

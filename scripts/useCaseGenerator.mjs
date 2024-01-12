@@ -13,6 +13,7 @@ import {
   titlecase,
 } from 'stringcase'
 
+// TODO: Modify templates to use the new context type 
 const generator = async () => {
 intro(`${pc.inverse(pc.cyan('    Create use case    '))}
 
@@ -151,7 +152,7 @@ const fileGenerator = async (model, mutation) => {
           // add method import to resolver
           modified = modified.replace(/#methods-area#/g, `#methods-area# 
     @Mutation(() => ${model})
-    async ${m}(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: ${capitalM}Args) {
+    async ${m}(@Context() ctx: Ctx, @Info() info: GraphQLResolveInfo, @Args() args: ${capitalM}Args) {
         return this.${m}UseCase.${m}(ctx, info, args);
     }
     `);

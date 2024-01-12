@@ -7,10 +7,10 @@ import { DecimalJSScalar } from "../scalars";
   isAbstract: true
 })
 export class User {
-  @Field(_type => Int, {
+  @Field(_type => String, {
     nullable: false
   })
-  id!: number;
+  id!: string;
 
   /**
    * @zod.email({ message: \"please enter a valid email\" })
@@ -21,15 +21,7 @@ export class User {
   })
   email!: string;
 
-  @Field(_type => String, {
-    nullable: true
-  })
-  username?: string | null;
-
-  @Field(_type => String, {
-    nullable: false
-  })
-  password!: string;
+  password?: string;
 
   @Field(_type => String, {
     nullable: true
@@ -41,33 +33,17 @@ export class User {
   })
   lastName?: string | null;
 
-  @Field(_type => Date, {
-    nullable: false
-  })
-  lastLogin!: Date;
+  lastLogin?: Date;
 
   @Field(_type => Boolean, {
     nullable: false
   })
-  isSuperuser!: boolean;
-
-  @Field(_type => Boolean, {
-    nullable: false
-  })
-  isStaff!: boolean;
+  isAdmin!: boolean;
 
   @Field(_type => Boolean, {
     nullable: false
   })
   isActive!: boolean;
 
-  @Field(_type => Date, {
-    nullable: false
-  })
-  dateJoined!: Date;
-
-  @Field(_type => Date, {
-    nullable: true
-  })
-  dateOfBirth?: Date | null;
+  dateJoined?: Date;
 }

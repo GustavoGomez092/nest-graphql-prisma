@@ -2,16 +2,22 @@ import * as z from "zod"
 import * as imports from "../../prisma/null"
 
 export const UserModel = z.object({
-  id: z.number().int(),
+  id: z.string(),
   email: z.string().email({ message: "please enter a valid email" }),
-  username: z.string().nullish(),
+  /**
+   * @TypeGraphQL.omit(output: true)
+   */
   password: z.string(),
   firstName: z.string().nullish(),
   lastName: z.string().nullish(),
+  /**
+   * @TypeGraphQL.omit(output: true)
+   */
   lastLogin: z.date(),
-  isSuperuser: z.boolean(),
-  isStaff: z.boolean(),
+  isAdmin: z.boolean(),
   isActive: z.boolean(),
+  /**
+   * @TypeGraphQL.omit(output: true)
+   */
   dateJoined: z.date(),
-  dateOfBirth: z.date().nullish(),
 })

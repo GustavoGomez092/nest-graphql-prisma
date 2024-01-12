@@ -4,7 +4,6 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperationsInput";
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
-import { NullableDateTimeFieldUpdateOperationsInput } from "../inputs/NullableDateTimeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
@@ -15,12 +14,12 @@ export class UserUpdateManyMutationInput {
   @Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  email?: StringFieldUpdateOperationsInput | undefined;
+  id?: StringFieldUpdateOperationsInput | undefined;
 
-  @Field(_type => NullableStringFieldUpdateOperationsInput, {
+  @Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
-  username?: NullableStringFieldUpdateOperationsInput | undefined;
+  email?: StringFieldUpdateOperationsInput | undefined;
 
   @Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
@@ -45,12 +44,7 @@ export class UserUpdateManyMutationInput {
   @Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  isSuperuser?: BoolFieldUpdateOperationsInput | undefined;
-
-  @Field(_type => BoolFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  isStaff?: BoolFieldUpdateOperationsInput | undefined;
+  isAdmin?: BoolFieldUpdateOperationsInput | undefined;
 
   @Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
@@ -61,9 +55,4 @@ export class UserUpdateManyMutationInput {
     nullable: true
   })
   dateJoined?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @Field(_type => NullableDateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  dateOfBirth?: NullableDateTimeFieldUpdateOperationsInput | undefined;
 }
