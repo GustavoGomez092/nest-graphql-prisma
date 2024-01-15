@@ -1,4 +1,3 @@
-import { MailModule } from 'src/mail/mail.module';
 import { Module, Provider } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { PrismaClient } from '@prisma/client';
