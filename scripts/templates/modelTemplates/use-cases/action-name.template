@@ -5,7 +5,7 @@ import { Ctx } from 'src/app.types';
 
 @Injectable()
 export class #action-name# extends #action-name#Resolver {
-  async #action-name-lower# (ctx: Ctx, info: GraphQLResolveInfo, args: #action-name#Args) {
+  async handle (ctx: Ctx, info: GraphQLResolveInfo, args: #action-name#Args) {
     console.log('----------Before #action-name#----------');
     console.log('insert your custom business logic here');
     return super.#action-name-lower#(ctx, info, args);

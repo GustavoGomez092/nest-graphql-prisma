@@ -3,14 +3,9 @@ import pc from "picocolors"
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { parsePrismaSchema } from "@loancrate/prisma-schema-parser";
 import {
-  camelcase,
   capitalcase,
-  cramcase,
   decapitalcase,
-  lowercase,
-  pascalcase,
   spinalcase,
-  titlecase,
 } from 'stringcase'
 
 // TODO: Modify templates to use the new context type 
@@ -153,7 +148,7 @@ const fileGenerator = async (model, mutation) => {
           modified = modified.replace(/#methods-area#/g, `#methods-area# 
     @Mutation(() => ${model})
     async ${m}(@Context() ctx: Ctx, @Info() info: GraphQLResolveInfo, @Args() args: ${capitalM}Args) {
-        return this.${m}UseCase.${m}(ctx, info, args);
+        return this.${m}UseCase.handle(ctx, info, args);
     }
     `);
           resolver = modified;
@@ -165,7 +160,7 @@ const fileGenerator = async (model, mutation) => {
           // add method import to module
           modified = module.replace(/#import-area#/g, ` #import-area# \nimport { ${capitalM} } from './use-cases/${kebabM}';`);
           // add method to providers array
-          modified = modified.replace(/\[ /g, ` [ \n    ${capitalM},`);
+          modified = modified.replace(/\[/g, ` [ \n    ${capitalM},`);
 
           module = modified;
           writeFileSync(moduleFile, modified);

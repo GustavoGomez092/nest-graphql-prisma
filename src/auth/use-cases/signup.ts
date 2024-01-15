@@ -6,10 +6,16 @@ import { SignupInput } from '../dto/signup.input';
 import { GraphQLResolveInfo } from 'graphql';
 import { Ctx } from 'src/app.types';
 import * as argon2 from 'argon2';
+import { SendEmail } from 'src/mail/use-cases/send';
+import { WelcomeType } from '../../../email_templates/pages/welcome.type';
+import * as path from 'path';
 
 @Injectable()
 export class signUp {
-  constructor(private createOneUser: CreateOneUser) {}
+  constructor(
+    private createOneUser: CreateOneUser,
+    private sendEmail: SendEmail,
+  ) {}
 
   async handle(ctx: Ctx, info: GraphQLResolveInfo, input: SignupInput): Promise<User> {
     const schema = z
@@ -44,12 +50,30 @@ export class signUp {
 
     input.password = hash;
 
-    return this.createOneUser.createOneUser(ctx, info, {
+    // create user
+    const generatedUser = await this.createOneUser.createOneUser(ctx, info, {
       data: {
         email: input.email,
         password: input.password,
         name: input.name,
       },
     });
+
+    // send welcome email
+    try {
+      await this.sendEmail.handle({
+        to: generatedUser.email,
+        subject: 'Welcome to the app',
+        template: path.join(__dirname, '../../../../email_templates/pages/welcome'),
+        context: {
+          userName: generatedUser.name,
+          userEmail: generatedUser.email,
+        } as WelcomeType,
+      });
+    } catch (error) {
+      throw new BadRequestException(error);
+    }
+
+    return generatedUser;
   }
 }

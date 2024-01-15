@@ -47,12 +47,15 @@ Just follow the prompts of the generator.
 ## .env file
 
 | key            |                                   value                                    |
-| -------------- | :------------------------------------------------------------------------: | --- | ---------- |
+| -------------- | :------------------------------------------------------------------------: |
 | DATABASE_URL   |       `postgresql://postgres:password@db.provider.co:5432/postgres`        |
 | JWT_SECRET     | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
 | JWT_EXPIRES_IN |                                     1h                                     |
-| NODE_ENV       |                                development                                 |     | production |
+| NODE_ENV       |                                development                                 |
+| SMTP_SERVER    |                             smtp.provider.com                              |
+| SMTP_PORT      |                                    587                                     |
+| SMTP_USER      |                                  smtpuser                                  |
+| SMTP_PASSWORD  |                                smtppassword                                |
+| MAIL_FROM      |                              noreply@test.com                              |
 
 ## Considerations
-
-Even though there is an auth guard on this template, this is a BYOA (bring your own auth) boilerplate. feel free to use this auth guard, modify it to your needs or scrap it all together.
