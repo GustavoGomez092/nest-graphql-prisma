@@ -1,15 +1,11 @@
 import { Module } from '@nestjs/common';
 import { jwtConstants } from './constants';
 import { JwtModule } from '@nestjs/jwt';
-import { APP_GUARD } from '@nestjs/core';
-import { AuthGuard } from './guards/auth.guard';
 import { AuthResolver } from './auth.resolver';
 import { UserModule } from 'src/user/user.module';
 import { signIn } from './use-cases/signin';
 import { signUp } from './use-cases/signup';
 import { MailModule } from 'src/mail/mail.module';
-import { EditGuard } from './guards/edit.guard';
-
 @Module({
   imports: [
     JwtModule.register({
@@ -20,19 +16,7 @@ import { EditGuard } from './guards/edit.guard';
     UserModule,
     MailModule,
   ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: EditGuard,
-    },
-    signIn,
-    signUp,
-    AuthResolver,
-  ],
+  providers: [signIn, signUp, AuthResolver],
   exports: [signIn, signUp],
 })
 export class AuthModule {}

@@ -1,22 +1,22 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { UserCreateInput } from "../../../inputs/UserCreateInput";
 import { UserUpdateInput } from "../../../inputs/UserUpdateInput";
 import { UserWhereUniqueInput } from "../../../inputs/UserWhereUniqueInput";
 
-@ArgsType()
+@TypeGraphQL.ArgsType()
 export class UpsertOneUserArgs {
-  @Field(_type => UserWhereUniqueInput, {
+  @TypeGraphQL.Field(_type => UserWhereUniqueInput, {
     nullable: false
   })
   where!: UserWhereUniqueInput;
 
-  @Field(_type => UserCreateInput, {
+  @TypeGraphQL.Field(_type => UserCreateInput, {
     nullable: false
   })
   create!: UserCreateInput;
 
-  @Field(_type => UserUpdateInput, {
+  @TypeGraphQL.Field(_type => UserUpdateInput, {
     nullable: false
   })
   update!: UserUpdateInput;

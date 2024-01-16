@@ -1,4 +1,4 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 
 export enum UserScalarFieldEnum {
   id = "id",
@@ -10,7 +10,7 @@ export enum UserScalarFieldEnum {
   createdAt = "createdAt",
   updatedAt = "updatedAt"
 }
-registerEnumType(UserScalarFieldEnum, {
+TypeGraphQL.registerEnumType(UserScalarFieldEnum, {
   name: "UserScalarFieldEnum",
   description: undefined,
 });

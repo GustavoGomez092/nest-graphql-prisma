@@ -1,6 +1,6 @@
-import { Field, InputType } from "@nestjs/graphql";
+import { ArgsType, Field } from 'type-graphql';
 
-@InputType()
+@ArgsType()
 export class SignInInput {
   @Field()
   email: string;

@@ -1,13 +1,11 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 
-@InputType("DateTimeFieldUpdateOperationsInput", {
-  isAbstract: true
-})
+@TypeGraphQL.InputType("DateTimeFieldUpdateOperationsInput", {})
 export class DateTimeFieldUpdateOperationsInput {
-  @Field(_type => Date, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
   set?: Date | undefined;

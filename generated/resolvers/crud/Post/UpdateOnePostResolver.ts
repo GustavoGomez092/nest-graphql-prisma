@@ -1,18 +1,18 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { UpdateOnePostArgs } from "./args/UpdateOnePostArgs";
 import { Post } from "../../../models/Post";
-import { transformArgsIntoPrismaArgs, transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
+import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
-@Resolver(_of => Post)
+@TypeGraphQL.Resolver(_of => Post)
 export class UpdateOnePostResolver {
-  @Mutation(_returns => Post, {
+  @TypeGraphQL.Mutation(_returns => Post, {
     nullable: true
   })
-  async updateOnePost(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: UpdateOnePostArgs): Promise<Post | null> {
+  async updateOnePost(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOnePostArgs): Promise<Post | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).post.update({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }

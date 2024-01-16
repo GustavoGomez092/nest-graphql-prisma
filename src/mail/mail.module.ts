@@ -4,6 +4,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { SendEmail } from './use-cases/send';
 import { SMTPMailConstants } from './constants';
 import { handlebarsAdapter } from './adapters/handlebars.adapter';
+import { ConfigModule } from '@nestjs/config';
 
 const { SMTPServer, SMTPPort, SMTPUser, SMTPPassword, mailFrom, nameFrom } = SMTPMailConstants;
 

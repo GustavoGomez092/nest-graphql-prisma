@@ -1,19 +1,22 @@
 {
+  "version": "2.4.2",
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": true,
     "removeComments": true,
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES2019",
-    "lib": ["ES2019"],
+    "lib": ["es5", "es6"],
+    "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*", "templates"],
   "exclude": ["node_modules", "dist"]

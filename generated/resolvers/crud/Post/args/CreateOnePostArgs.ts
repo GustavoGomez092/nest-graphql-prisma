@@ -1,10 +1,10 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { PostCreateInput } from "../../../inputs/PostCreateInput";
 
-@ArgsType()
+@TypeGraphQL.ArgsType()
 export class CreateOnePostArgs {
-  @Field(_type => PostCreateInput, {
+  @TypeGraphQL.Field(_type => PostCreateInput, {
     nullable: false
   })
   data!: PostCreateInput;

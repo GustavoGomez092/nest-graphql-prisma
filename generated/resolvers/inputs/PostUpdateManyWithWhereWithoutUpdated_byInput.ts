@@ -1,20 +1,18 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { PostScalarWhereInput } from "../inputs/PostScalarWhereInput";
 import { PostUpdateManyMutationInput } from "../inputs/PostUpdateManyMutationInput";
 
-@InputType("PostUpdateManyWithWhereWithoutUpdated_byInput", {
-  isAbstract: true
-})
+@TypeGraphQL.InputType("PostUpdateManyWithWhereWithoutUpdated_byInput", {})
 export class PostUpdateManyWithWhereWithoutUpdated_byInput {
-  @Field(_type => PostScalarWhereInput, {
+  @TypeGraphQL.Field(_type => PostScalarWhereInput, {
     nullable: false
   })
   where!: PostScalarWhereInput;
 
-  @Field(_type => PostUpdateManyMutationInput, {
+  @TypeGraphQL.Field(_type => PostUpdateManyMutationInput, {
     nullable: false
   })
   data!: PostUpdateManyMutationInput;

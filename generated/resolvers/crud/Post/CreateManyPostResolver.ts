@@ -1,19 +1,19 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { CreateManyPostArgs } from "./args/CreateManyPostArgs";
 import { Post } from "../../../models/Post";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
-import { transformArgsIntoPrismaArgs, transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
+import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 
-@Resolver(_of => Post)
+@TypeGraphQL.Resolver(_of => Post)
 export class CreateManyPostResolver {
-  @Mutation(_returns => AffectedRowsOutput, {
+  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
     nullable: false
   })
-  async createManyPost(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: CreateManyPostArgs): Promise<AffectedRowsOutput> {
+  async createManyPost(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyPostArgs): Promise<AffectedRowsOutput> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).post.createMany({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }

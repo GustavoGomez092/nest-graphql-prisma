@@ -1,4 +1,4 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import type { GraphQLResolveInfo } from "graphql";
 import { AggregateUserArgs } from "./args/AggregateUserArgs";
 import { CreateManyUserArgs } from "./args/CreateManyUserArgs";
@@ -14,165 +14,165 @@ import { GroupByUserArgs } from "./args/GroupByUserArgs";
 import { UpdateManyUserArgs } from "./args/UpdateManyUserArgs";
 import { UpdateOneUserArgs } from "./args/UpdateOneUserArgs";
 import { UpsertOneUserArgs } from "./args/UpsertOneUserArgs";
-import { transformArgsIntoPrismaArgs, transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
+import { transformInfoIntoPrismaArgs, getPrismaFromContext, transformCountFieldIntoSelectRelationsCount } from "../../../helpers";
 import { User } from "../../../models/User";
 import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
 import { AggregateUser } from "../../outputs/AggregateUser";
 import { UserGroupBy } from "../../outputs/UserGroupBy";
 
-@Resolver(_of => User)
+@TypeGraphQL.Resolver(_of => User)
 export class UserCrudResolver {
-  @Query(_returns => AggregateUser, {
+  @TypeGraphQL.Query(_returns => AggregateUser, {
     nullable: false
   })
-  async aggregateUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: AggregateUserArgs): Promise<AggregateUser> {
+  async aggregateUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: AggregateUserArgs): Promise<AggregateUser> {
     return getPrismaFromContext(ctx).user.aggregate({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...transformInfoIntoPrismaArgs(info),
     });
   }
 
-  @Mutation(_returns => AffectedRowsOutput, {
+  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
     nullable: false
   })
-  async createManyUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: CreateManyUserArgs): Promise<AffectedRowsOutput> {
+  async createManyUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateManyUserArgs): Promise<AffectedRowsOutput> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.createMany({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Mutation(_returns => User, {
+  @TypeGraphQL.Mutation(_returns => User, {
     nullable: false
   })
-  async createOneUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: CreateOneUserArgs): Promise<User> {
+  async createOneUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: CreateOneUserArgs): Promise<User> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.create({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Mutation(_returns => AffectedRowsOutput, {
+  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
     nullable: false
   })
-  async deleteManyUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: DeleteManyUserArgs): Promise<AffectedRowsOutput> {
+  async deleteManyUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteManyUserArgs): Promise<AffectedRowsOutput> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.deleteMany({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Mutation(_returns => User, {
+  @TypeGraphQL.Mutation(_returns => User, {
     nullable: true
   })
-  async deleteOneUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: DeleteOneUserArgs): Promise<User | null> {
+  async deleteOneUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: DeleteOneUserArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.delete({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Query(_returns => User, {
+  @TypeGraphQL.Query(_returns => User, {
     nullable: true
   })
-  async findFirstUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: FindFirstUserArgs): Promise<User | null> {
+  async findFirstUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: FindFirstUserArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.findFirst({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Query(_returns => User, {
+  @TypeGraphQL.Query(_returns => User, {
     nullable: true
   })
-  async findFirstUserOrThrow(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: FindFirstUserOrThrowArgs): Promise<User | null> {
+  async findFirstUserOrThrow(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: FindFirstUserOrThrowArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.findFirstOrThrow({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Query(_returns => [User], {
+  @TypeGraphQL.Query(_returns => [User], {
     nullable: false
   })
-  async users(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: FindManyUserArgs): Promise<User[]> {
+  async users(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: FindManyUserArgs): Promise<User[]> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.findMany({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Query(_returns => User, {
+  @TypeGraphQL.Query(_returns => User, {
     nullable: true
   })
-  async user(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: FindUniqueUserArgs): Promise<User | null> {
+  async user(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: FindUniqueUserArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.findUnique({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Query(_returns => User, {
+  @TypeGraphQL.Query(_returns => User, {
     nullable: true
   })
-  async getUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: FindUniqueUserOrThrowArgs): Promise<User | null> {
+  async getUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: FindUniqueUserOrThrowArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.findUniqueOrThrow({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Query(_returns => [UserGroupBy], {
+  @TypeGraphQL.Query(_returns => [UserGroupBy], {
     nullable: false
   })
-  async groupByUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: GroupByUserArgs): Promise<UserGroupBy[]> {
+  async groupByUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: GroupByUserArgs): Promise<UserGroupBy[]> {
     const { _count, _avg, _sum, _min, _max } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.groupBy({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...Object.fromEntries(
         Object.entries({ _count, _avg, _sum, _min, _max }).filter(([_, v]) => v != null)
       ),
     });
   }
 
-  @Mutation(_returns => AffectedRowsOutput, {
+  @TypeGraphQL.Mutation(_returns => AffectedRowsOutput, {
     nullable: false
   })
-  async updateManyUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: UpdateManyUserArgs): Promise<AffectedRowsOutput> {
+  async updateManyUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateManyUserArgs): Promise<AffectedRowsOutput> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.updateMany({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Mutation(_returns => User, {
+  @TypeGraphQL.Mutation(_returns => User, {
     nullable: true
   })
-  async updateOneUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: UpdateOneUserArgs): Promise<User | null> {
+  async updateOneUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpdateOneUserArgs): Promise<User | null> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.update({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }
 
-  @Mutation(_returns => User, {
+  @TypeGraphQL.Mutation(_returns => User, {
     nullable: false
   })
-  async upsertOneUser(@Context() ctx: any, @Info() info: GraphQLResolveInfo, @Args() args: UpsertOneUserArgs): Promise<User> {
+  async upsertOneUser(@TypeGraphQL.Ctx() ctx: any, @TypeGraphQL.Info() info: GraphQLResolveInfo, @TypeGraphQL.Args() args: UpsertOneUserArgs): Promise<User> {
     const { _count } = transformInfoIntoPrismaArgs(info);
     return getPrismaFromContext(ctx).user.upsert({
-      ...(await transformArgsIntoPrismaArgs(info, args, ctx)),
+      ...args,
       ...(_count && transformCountFieldIntoSelectRelationsCount(_count)),
     });
   }

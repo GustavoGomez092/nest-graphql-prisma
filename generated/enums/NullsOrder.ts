@@ -1,10 +1,10 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 
 export enum NullsOrder {
   first = "first",
   last = "last"
 }
-registerEnumType(NullsOrder, {
+TypeGraphQL.registerEnumType(NullsOrder, {
   name: "NullsOrder",
   description: undefined,
 });

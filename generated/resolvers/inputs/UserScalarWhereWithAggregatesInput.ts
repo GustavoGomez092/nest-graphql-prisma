@@ -1,4 +1,4 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
@@ -8,61 +8,59 @@ import { EnumRoleWithAggregatesFilter } from "../inputs/EnumRoleWithAggregatesFi
 import { StringNullableWithAggregatesFilter } from "../inputs/StringNullableWithAggregatesFilter";
 import { StringWithAggregatesFilter } from "../inputs/StringWithAggregatesFilter";
 
-@InputType("UserScalarWhereWithAggregatesInput", {
-  isAbstract: true
-})
+@TypeGraphQL.InputType("UserScalarWhereWithAggregatesInput", {})
 export class UserScalarWhereWithAggregatesInput {
-  @Field(_type => [UserScalarWhereWithAggregatesInput], {
+  @TypeGraphQL.Field(_type => [UserScalarWhereWithAggregatesInput], {
     nullable: true
   })
   AND?: UserScalarWhereWithAggregatesInput[] | undefined;
 
-  @Field(_type => [UserScalarWhereWithAggregatesInput], {
+  @TypeGraphQL.Field(_type => [UserScalarWhereWithAggregatesInput], {
     nullable: true
   })
   OR?: UserScalarWhereWithAggregatesInput[] | undefined;
 
-  @Field(_type => [UserScalarWhereWithAggregatesInput], {
+  @TypeGraphQL.Field(_type => [UserScalarWhereWithAggregatesInput], {
     nullable: true
   })
   NOT?: UserScalarWhereWithAggregatesInput[] | undefined;
 
-  @Field(_type => StringWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
   id?: StringWithAggregatesFilter | undefined;
 
-  @Field(_type => StringWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
   email?: StringWithAggregatesFilter | undefined;
 
-  @Field(_type => StringWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringWithAggregatesFilter, {
     nullable: true
   })
   password?: StringWithAggregatesFilter | undefined;
 
-  @Field(_type => StringNullableWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
   name?: StringNullableWithAggregatesFilter | undefined;
 
-  @Field(_type => EnumRoleWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => EnumRoleWithAggregatesFilter, {
     nullable: true
   })
   role?: EnumRoleWithAggregatesFilter | undefined;
 
-  @Field(_type => BoolWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => BoolWithAggregatesFilter, {
     nullable: true
   })
   verified?: BoolWithAggregatesFilter | undefined;
 
-  @Field(_type => DateTimeWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true
   })
   createdAt?: DateTimeWithAggregatesFilter | undefined;
 
-  @Field(_type => DateTimeWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
     nullable: true
   })
   updatedAt?: DateTimeWithAggregatesFilter | undefined;

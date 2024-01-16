@@ -1,4 +1,4 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
@@ -7,61 +7,59 @@ import { UserMaxAggregate } from "../outputs/UserMaxAggregate";
 import { UserMinAggregate } from "../outputs/UserMinAggregate";
 import { Role } from "../../enums/Role";
 
-@ObjectType("UserGroupBy", {
-  isAbstract: true
-})
+@TypeGraphQL.ObjectType("UserGroupBy", {})
 export class UserGroupBy {
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   id!: string;
 
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   email!: string;
 
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   password!: string;
 
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   name!: string | null;
 
-  @Field(_type => Role, {
+  @TypeGraphQL.Field(_type => Role, {
     nullable: false
   })
   role!: "USER" | "ADMIN";
 
-  @Field(_type => Boolean, {
+  @TypeGraphQL.Field(_type => Boolean, {
     nullable: false
   })
   verified!: boolean;
 
-  @Field(_type => Date, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
   createdAt!: Date;
 
-  @Field(_type => Date, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: false
   })
   updatedAt!: Date;
 
-  @Field(_type => UserCountAggregate, {
+  @TypeGraphQL.Field(_type => UserCountAggregate, {
     nullable: true
   })
   _count!: UserCountAggregate | null;
 
-  @Field(_type => UserMinAggregate, {
+  @TypeGraphQL.Field(_type => UserMinAggregate, {
     nullable: true
   })
   _min!: UserMinAggregate | null;
 
-  @Field(_type => UserMaxAggregate, {
+  @TypeGraphQL.Field(_type => UserMaxAggregate, {
     nullable: true
   })
   _max!: UserMaxAggregate | null;

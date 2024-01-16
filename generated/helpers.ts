@@ -1,5 +1,5 @@
 import type { GraphQLResolveInfo } from "graphql";
-import * as graphqlFields from "graphql-fields";
+import graphqlFields from "graphql-fields";
 
 export function transformInfoIntoPrismaArgs(info: GraphQLResolveInfo): Record<string, any> {
   const fields: Record<string, any> = graphqlFields(
@@ -55,15 +55,6 @@ export function transformCountFieldIntoSelectRelationsCount(_count: object) {
     },
   }
 }
-
-export let transformArgsIntoPrismaArgs = async function <TArgs = Record<string, any>, TContext = any>(info: GraphQLResolveInfo, args: TArgs, ctx: TContext): Promise<TArgs> {
-  return args;
-};
-
-export function setTransformArgsIntoPrismaArgs(newTransformArgsIntoPrismaArgs: typeof transformArgsIntoPrismaArgs) {
-  transformArgsIntoPrismaArgs = newTransformArgsIntoPrismaArgs;
-}
-
 
 
 

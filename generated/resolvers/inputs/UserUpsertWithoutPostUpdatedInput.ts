@@ -1,4 +1,4 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
@@ -6,21 +6,19 @@ import { UserCreateWithoutPostUpdatedInput } from "../inputs/UserCreateWithoutPo
 import { UserUpdateWithoutPostUpdatedInput } from "../inputs/UserUpdateWithoutPostUpdatedInput";
 import { UserWhereInput } from "../inputs/UserWhereInput";
 
-@InputType("UserUpsertWithoutPostUpdatedInput", {
-  isAbstract: true
-})
+@TypeGraphQL.InputType("UserUpsertWithoutPostUpdatedInput", {})
 export class UserUpsertWithoutPostUpdatedInput {
-  @Field(_type => UserUpdateWithoutPostUpdatedInput, {
+  @TypeGraphQL.Field(_type => UserUpdateWithoutPostUpdatedInput, {
     nullable: false
   })
   update!: UserUpdateWithoutPostUpdatedInput;
 
-  @Field(_type => UserCreateWithoutPostUpdatedInput, {
+  @TypeGraphQL.Field(_type => UserCreateWithoutPostUpdatedInput, {
     nullable: false
   })
   create!: UserCreateWithoutPostUpdatedInput;
 
-  @Field(_type => UserWhereInput, {
+  @TypeGraphQL.Field(_type => UserWhereInput, {
     nullable: true
   })
   where?: UserWhereInput | undefined;

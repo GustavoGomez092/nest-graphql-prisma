@@ -1,10 +1,10 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 
 export enum QueryMode {
   "default" = "default",
   insensitive = "insensitive"
 }
-registerEnumType(QueryMode, {
+TypeGraphQL.registerEnumType(QueryMode, {
   name: "QueryMode",
   description: undefined,
 });

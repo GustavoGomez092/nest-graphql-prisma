@@ -1,49 +1,47 @@
-import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutation, ObjectType, Query, ResolveField, Resolver, Root, registerEnumType } from "@nestjs/graphql";
+import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { Role } from "../../enums/Role";
 
-@ObjectType("UserMaxAggregate", {
-  isAbstract: true
-})
+@TypeGraphQL.ObjectType("UserMaxAggregate", {})
 export class UserMaxAggregate {
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   id!: string | null;
 
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   email!: string | null;
 
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   password!: string | null;
 
-  @Field(_type => String, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
   name!: string | null;
 
-  @Field(_type => Role, {
+  @TypeGraphQL.Field(_type => Role, {
     nullable: true
   })
   role!: "USER" | "ADMIN" | null;
 
-  @Field(_type => Boolean, {
+  @TypeGraphQL.Field(_type => Boolean, {
     nullable: true
   })
   verified!: boolean | null;
 
-  @Field(_type => Date, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
   createdAt!: Date | null;
 
-  @Field(_type => Date, {
+  @TypeGraphQL.Field(_type => Date, {
     nullable: true
   })
   updatedAt!: Date | null;

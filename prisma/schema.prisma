@@ -11,9 +11,8 @@ generator client {
 }
 
 generator typegraphql {
-  provider       = "typegraphql-prisma-nestjs"
-  output         = "../generated"
-  emitIsAbstract = true
+  provider = "typegraphql-prisma"
+  output   = "../generated"
 }
 
 generator zod {
