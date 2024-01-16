@@ -109,16 +109,6 @@ const fileGenerator = async (model, mutation) => {
         writeFileSync(moduleFile, modified);
       };
 
-      // import module to app module
-      const appModuleFile = `./src/app.module.ts`;
-      let appModule = readFileSync(appModuleFile, 'utf-8');
-      const isImported = appModule.includes(`import { ${model}Module } from './${decapitalizedModel}/${decapitalizedModel}.module';`);
-      if(!isImported) {
-        let modifiedAppModule = appModule.replace(/#import-area#/g, ` #import-area# \nimport { ${model}Module } from './${decapitalizedModel}/${decapitalizedModel}.module';`);
-        modifiedAppModule = modifiedAppModule.replace(/AuthModule,/g, `AuthModule, \n        ${model}Module,`);
-        writeFileSync(appModuleFile, modifiedAppModule);
-      }
-
       // create resolver file if it doesn't exist
       const resolverFile = `./src/${decapitalizedModel}/${decapitalizedModel}.resolver.ts`;
       if (!existsSync(resolverFile)) {
@@ -146,8 +136,9 @@ const fileGenerator = async (model, mutation) => {
           modified = modified.replace(/#constructor-area#/g, ` #constructor-area# \nprivate readonly ${m}UseCase: ${capitalM},`);
           // add method import to resolver
           modified = modified.replace(/#methods-area#/g, `#methods-area# 
+    @Authorized()
     @Mutation(() => ${model})
-    async ${m}(@Context() ctx: Ctx, @Info() info: GraphQLResolveInfo, @Args() args: ${capitalM}Args) {
+    async ${m}(@Ctx() ctx: Context, @Info() info: GraphQLResolveInfo, @Args() args: ${capitalM}Args) {
         return this.${m}UseCase.handle(ctx, info, args);
     }
     `);
@@ -165,6 +156,12 @@ const fileGenerator = async (model, mutation) => {
           module = modified;
           writeFileSync(moduleFile, modified);
 
+          // App module file modifications
+          const appModuleFile = `./src/app.module.ts`;
+          let appModule = readFileSync(appModuleFile, 'utf-8');
+          let modifiedAppModule = appModule.replace(/#import-area#/g, `#import-area# \nimport { ${capitalM} } from './${decapitalizedModel}/use-cases/${kebabM}';`);
+          modifiedAppModule = modifiedAppModule.replace(/providers: \[/g, `providers: [\n        ${capitalM},`);
+          writeFileSync(appModuleFile, modifiedAppModule);
         });
 
       resolve(true);

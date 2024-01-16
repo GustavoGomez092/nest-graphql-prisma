@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { GraphQLResolveInfo } from 'graphql';
 import { Ctx } from 'src/app.types';
 import * as argon2 from 'argon2';
+import { jwtConstants } from '../constants';
 
 @Injectable()
 export class signIn {
@@ -14,7 +15,7 @@ export class signIn {
   async handle({ prisma }: Ctx, info: GraphQLResolveInfo, input: SignInInput): Promise<JWTTokenInput> {
     try {
       this.validate(input);
-
+      console.log('here');
       const user = await prisma.user.findUniqueOrThrow({
         where: {
           email: input.email,
@@ -29,8 +30,11 @@ export class signIn {
 
       const payload = { user: user.id, email: user.email, name: user.name };
 
+      const JWT = new JwtService({ secret: jwtConstants.secret });
+      const token = await JWT.signAsync(payload);
+
       return {
-        access_token: await this.jwtService.signAsync(payload),
+        access_token: token,
       };
     } catch (error) {
       console.log(error.code);

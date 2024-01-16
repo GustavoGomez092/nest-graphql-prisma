@@ -13,7 +13,8 @@ import { signIn } from './auth/use-cases/signin';
 import { signUp } from './auth/use-cases/signup';
 import { JwtService } from '@nestjs/jwt';
 import { MailModule } from './mail/mail.module';
-//    #import-area#
+import { customAuthChecker } from './middleware/Auth.middleware';
+// #import-area#
 
 const prisma = new PrismaClient({
   log: process.env.NODE_ENV === 'production' ? [] : ['query'],
@@ -36,7 +37,8 @@ class NewDriver extends ApolloDriver {
     TypeGraphQLModule.forRoot({
       driver: NewDriver,
       emitSchemaFile: 'schema.gql',
-      context: ({ req }) => ({ req, prisma }),
+      context: ({ req }) => ({ ...req, prisma }),
+      authChecker: customAuthChecker,
     }),
     MailModule,
   ],
