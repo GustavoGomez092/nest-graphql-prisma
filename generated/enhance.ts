@@ -10,7 +10,8 @@ import * as inputTypes from "./resolvers/inputs";
 export type MethodDecoratorOverrideFn = (decorators: MethodDecorator[]) => MethodDecorator[];
 
 const crudResolversMap = {
-  User: crudResolvers.UserCrudResolver
+  User: crudResolvers.UserCrudResolver,
+  Post: crudResolvers.PostCrudResolver
 };
 const actionResolversMap = {
   User: {
@@ -28,10 +29,27 @@ const actionResolversMap = {
     updateManyUser: actionResolvers.UpdateManyUserResolver,
     updateOneUser: actionResolvers.UpdateOneUserResolver,
     upsertOneUser: actionResolvers.UpsertOneUserResolver
+  },
+  Post: {
+    aggregatePost: actionResolvers.AggregatePostResolver,
+    createManyPost: actionResolvers.CreateManyPostResolver,
+    createOnePost: actionResolvers.CreateOnePostResolver,
+    deleteManyPost: actionResolvers.DeleteManyPostResolver,
+    deleteOnePost: actionResolvers.DeleteOnePostResolver,
+    findFirstPost: actionResolvers.FindFirstPostResolver,
+    findFirstPostOrThrow: actionResolvers.FindFirstPostOrThrowResolver,
+    posts: actionResolvers.FindManyPostResolver,
+    post: actionResolvers.FindUniquePostResolver,
+    getPost: actionResolvers.FindUniquePostOrThrowResolver,
+    groupByPost: actionResolvers.GroupByPostResolver,
+    updateManyPost: actionResolvers.UpdateManyPostResolver,
+    updateOnePost: actionResolvers.UpdateOnePostResolver,
+    upsertOnePost: actionResolvers.UpsertOnePostResolver
   }
 };
 const crudResolversInfo = {
-  User: ["aggregateUser", "createManyUser", "createOneUser", "deleteManyUser", "deleteOneUser", "findFirstUser", "findFirstUserOrThrow", "users", "user", "getUser", "groupByUser", "updateManyUser", "updateOneUser", "upsertOneUser"]
+  User: ["aggregateUser", "createManyUser", "createOneUser", "deleteManyUser", "deleteOneUser", "findFirstUser", "findFirstUserOrThrow", "users", "user", "getUser", "groupByUser", "updateManyUser", "updateOneUser", "upsertOneUser"],
+  Post: ["aggregatePost", "createManyPost", "createOnePost", "deleteManyPost", "deleteOnePost", "findFirstPost", "findFirstPostOrThrow", "posts", "post", "getPost", "groupByPost", "updateManyPost", "updateOnePost", "upsertOnePost"]
 };
 const argsInfo = {
   AggregateUserArgs: ["where", "orderBy", "cursor", "take", "skip"],
@@ -47,7 +65,21 @@ const argsInfo = {
   GroupByUserArgs: ["where", "orderBy", "by", "having", "take", "skip"],
   UpdateManyUserArgs: ["data", "where"],
   UpdateOneUserArgs: ["data", "where"],
-  UpsertOneUserArgs: ["where", "create", "update"]
+  UpsertOneUserArgs: ["where", "create", "update"],
+  AggregatePostArgs: ["where", "orderBy", "cursor", "take", "skip"],
+  CreateManyPostArgs: ["data", "skipDuplicates"],
+  CreateOnePostArgs: ["data"],
+  DeleteManyPostArgs: ["where"],
+  DeleteOnePostArgs: ["where"],
+  FindFirstPostArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
+  FindFirstPostOrThrowArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
+  FindManyPostArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
+  FindUniquePostArgs: ["where"],
+  FindUniquePostOrThrowArgs: ["where"],
+  GroupByPostArgs: ["where", "orderBy", "by", "having", "take", "skip"],
+  UpdateManyPostArgs: ["data", "where"],
+  UpdateOnePostArgs: ["data", "where"],
+  UpsertOnePostArgs: ["where", "create", "update"]
 };
 
 type ResolverModelNames = keyof typeof crudResolversMap;
@@ -185,7 +217,8 @@ function applyTypeClassEnhanceConfig<
 }
 
 const modelsInfo = {
-  User: ["id", "email", "name", "role", "verified"]
+  User: ["id", "email", "name", "role", "verified"],
+  Post: ["id", "title", "content", "published"]
 };
 
 type ModelNames = keyof typeof models;
@@ -226,10 +259,16 @@ export function applyModelsEnhanceMap(modelsEnhanceMap: ModelsEnhanceMap) {
 const outputsInfo = {
   AggregateUser: ["_count", "_min", "_max"],
   UserGroupBy: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "_count", "_min", "_max"],
+  AggregatePost: ["_count", "_min", "_max"],
+  PostGroupBy: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt", "_count", "_min", "_max"],
   AffectedRowsOutput: ["count"],
+  UserCount: ["PostCreated", "PostUpdated"],
   UserCountAggregate: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "_all"],
   UserMinAggregate: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
-  UserMaxAggregate: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"]
+  UserMaxAggregate: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
+  PostCountAggregate: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt", "_all"],
+  PostMinAggregate: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  PostMaxAggregate: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"]
 };
 
 type OutputTypesNames = keyof typeof outputTypes;
@@ -270,21 +309,32 @@ export function applyOutputTypesEnhanceMap(
 }
 
 const inputsInfo = {
-  UserWhereInput: ["AND", "OR", "NOT", "id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
-  UserOrderByWithRelationInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
-  UserWhereUniqueInput: ["id", "email", "AND", "OR", "NOT", "password", "name", "role", "verified", "createdAt", "updatedAt"],
+  UserWhereInput: ["AND", "OR", "NOT", "id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated", "PostUpdated"],
+  UserOrderByWithRelationInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated", "PostUpdated"],
+  UserWhereUniqueInput: ["id", "email", "AND", "OR", "NOT", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated", "PostUpdated"],
   UserOrderByWithAggregationInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "_count", "_max", "_min"],
   UserScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
-  UserCreateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
-  UserUpdateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
+  PostWhereInput: ["AND", "OR", "NOT", "id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt", "createdBy", "updated_by"],
+  PostOrderByWithRelationInput: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt", "createdBy", "updated_by"],
+  PostWhereUniqueInput: ["id", "AND", "OR", "NOT", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt", "createdBy", "updated_by"],
+  PostOrderByWithAggregationInput: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt", "_count", "_max", "_min"],
+  PostScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  UserCreateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated", "PostUpdated"],
+  UserUpdateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated", "PostUpdated"],
   UserCreateManyInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
   UserUpdateManyMutationInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
+  PostCreateInput: ["id", "title", "content", "published", "createdAt", "updatedAt", "createdBy", "updated_by"],
+  PostUpdateInput: ["id", "title", "content", "published", "createdAt", "updatedAt", "createdBy", "updated_by"],
+  PostCreateManyInput: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  PostUpdateManyMutationInput: ["id", "title", "content", "published", "createdAt", "updatedAt"],
   StringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
   StringNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
   EnumRoleFilter: ["equals", "in", "notIn", "not"],
   BoolFilter: ["equals", "not"],
   DateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
+  PostListRelationFilter: ["every", "some", "none"],
   SortOrderInput: ["sort", "nulls"],
+  PostOrderByRelationAggregateInput: ["_count"],
   UserCountOrderByAggregateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
   UserMaxOrderByAggregateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
   UserMinOrderByAggregateInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt"],
@@ -293,11 +343,23 @@ const inputsInfo = {
   EnumRoleWithAggregatesFilter: ["equals", "in", "notIn", "not", "_count", "_min", "_max"],
   BoolWithAggregatesFilter: ["equals", "not", "_count", "_min", "_max"],
   DateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"],
+  UserRelationFilter: ["is", "isNot"],
+  PostCountOrderByAggregateInput: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  PostMaxOrderByAggregateInput: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  PostMinOrderByAggregateInput: ["id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  PostCreateNestedManyWithoutCreatedByInput: ["create", "connectOrCreate", "createMany", "connect"],
+  PostCreateNestedManyWithoutUpdated_byInput: ["create", "connectOrCreate", "createMany", "connect"],
   StringFieldUpdateOperationsInput: ["set"],
   NullableStringFieldUpdateOperationsInput: ["set"],
   EnumRoleFieldUpdateOperationsInput: ["set"],
   BoolFieldUpdateOperationsInput: ["set"],
   DateTimeFieldUpdateOperationsInput: ["set"],
+  PostUpdateManyWithoutCreatedByNestedInput: ["create", "connectOrCreate", "upsert", "createMany", "set", "disconnect", "delete", "connect", "update", "updateMany", "deleteMany"],
+  PostUpdateManyWithoutUpdated_byNestedInput: ["create", "connectOrCreate", "upsert", "createMany", "set", "disconnect", "delete", "connect", "update", "updateMany", "deleteMany"],
+  UserCreateNestedOneWithoutPostCreatedInput: ["create", "connectOrCreate", "connect"],
+  UserCreateNestedOneWithoutPostUpdatedInput: ["create", "connectOrCreate", "connect"],
+  UserUpdateOneRequiredWithoutPostCreatedNestedInput: ["create", "connectOrCreate", "upsert", "connect", "update"],
+  UserUpdateOneRequiredWithoutPostUpdatedNestedInput: ["create", "connectOrCreate", "upsert", "connect", "update"],
   NestedStringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
   NestedStringNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
   NestedEnumRoleFilter: ["equals", "in", "notIn", "not"],
@@ -309,7 +371,34 @@ const inputsInfo = {
   NestedIntNullableFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedEnumRoleWithAggregatesFilter: ["equals", "in", "notIn", "not", "_count", "_min", "_max"],
   NestedBoolWithAggregatesFilter: ["equals", "not", "_count", "_min", "_max"],
-  NestedDateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"]
+  NestedDateTimeWithAggregatesFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not", "_count", "_min", "_max"],
+  PostCreateWithoutCreatedByInput: ["id", "title", "content", "published", "createdAt", "updatedAt", "updated_by"],
+  PostCreateOrConnectWithoutCreatedByInput: ["where", "create"],
+  PostCreateManyCreatedByInputEnvelope: ["data", "skipDuplicates"],
+  PostCreateWithoutUpdated_byInput: ["id", "title", "content", "published", "createdAt", "updatedAt", "createdBy"],
+  PostCreateOrConnectWithoutUpdated_byInput: ["where", "create"],
+  PostCreateManyUpdated_byInputEnvelope: ["data", "skipDuplicates"],
+  PostUpsertWithWhereUniqueWithoutCreatedByInput: ["where", "update", "create"],
+  PostUpdateWithWhereUniqueWithoutCreatedByInput: ["where", "data"],
+  PostUpdateManyWithWhereWithoutCreatedByInput: ["where", "data"],
+  PostScalarWhereInput: ["AND", "OR", "NOT", "id", "title", "content", "published", "createdById", "updatedById", "createdAt", "updatedAt"],
+  PostUpsertWithWhereUniqueWithoutUpdated_byInput: ["where", "update", "create"],
+  PostUpdateWithWhereUniqueWithoutUpdated_byInput: ["where", "data"],
+  PostUpdateManyWithWhereWithoutUpdated_byInput: ["where", "data"],
+  UserCreateWithoutPostCreatedInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostUpdated"],
+  UserCreateOrConnectWithoutPostCreatedInput: ["where", "create"],
+  UserCreateWithoutPostUpdatedInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated"],
+  UserCreateOrConnectWithoutPostUpdatedInput: ["where", "create"],
+  UserUpsertWithoutPostCreatedInput: ["update", "create", "where"],
+  UserUpdateToOneWithWhereWithoutPostCreatedInput: ["where", "data"],
+  UserUpdateWithoutPostCreatedInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostUpdated"],
+  UserUpsertWithoutPostUpdatedInput: ["update", "create", "where"],
+  UserUpdateToOneWithWhereWithoutPostUpdatedInput: ["where", "data"],
+  UserUpdateWithoutPostUpdatedInput: ["id", "email", "password", "name", "role", "verified", "createdAt", "updatedAt", "PostCreated"],
+  PostCreateManyCreatedByInput: ["id", "title", "content", "published", "updatedById", "createdAt", "updatedAt"],
+  PostCreateManyUpdated_byInput: ["id", "title", "content", "published", "createdById", "createdAt", "updatedAt"],
+  PostUpdateWithoutCreatedByInput: ["id", "title", "content", "published", "createdAt", "updatedAt", "updated_by"],
+  PostUpdateWithoutUpdated_byInput: ["id", "title", "content", "published", "createdAt", "updatedAt", "createdBy"]
 };
 
 type InputTypesNames = keyof typeof inputTypes;

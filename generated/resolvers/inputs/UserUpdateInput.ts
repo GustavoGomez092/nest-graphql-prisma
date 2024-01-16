@@ -6,6 +6,8 @@ import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperati
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
+import { PostUpdateManyWithoutCreatedByNestedInput } from "../inputs/PostUpdateManyWithoutCreatedByNestedInput";
+import { PostUpdateManyWithoutUpdated_byNestedInput } from "../inputs/PostUpdateManyWithoutUpdated_byNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 
 @InputType("UserUpdateInput", {
@@ -51,4 +53,14 @@ export class UserUpdateInput {
     nullable: true
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
+
+  @Field(_type => PostUpdateManyWithoutCreatedByNestedInput, {
+    nullable: true
+  })
+  PostCreated?: PostUpdateManyWithoutCreatedByNestedInput | undefined;
+
+  @Field(_type => PostUpdateManyWithoutUpdated_byNestedInput, {
+    nullable: true
+  })
+  PostUpdated?: PostUpdateManyWithoutUpdated_byNestedInput | undefined;
 }

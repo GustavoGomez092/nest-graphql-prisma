@@ -2,6 +2,8 @@ import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutati
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { PostCreateNestedManyWithoutCreatedByInput } from "../inputs/PostCreateNestedManyWithoutCreatedByInput";
+import { PostCreateNestedManyWithoutUpdated_byInput } from "../inputs/PostCreateNestedManyWithoutUpdated_byInput";
 import { Role } from "../../enums/Role";
 
 @InputType("UserCreateInput", {
@@ -47,4 +49,14 @@ export class UserCreateInput {
     nullable: true
   })
   updatedAt?: Date | undefined;
+
+  @Field(_type => PostCreateNestedManyWithoutCreatedByInput, {
+    nullable: true
+  })
+  PostCreated?: PostCreateNestedManyWithoutCreatedByInput | undefined;
+
+  @Field(_type => PostCreateNestedManyWithoutUpdated_byInput, {
+    nullable: true
+  })
+  PostUpdated?: PostCreateNestedManyWithoutUpdated_byInput | undefined;
 }

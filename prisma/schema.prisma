@@ -26,22 +26,45 @@ generator zod {
   prismaJsonNullability = false
 }
 
-model User {
-  id        String   @id @default(cuid())
-  /// @zod.email({ message: "please enter a valid email" })
-  email     String   @unique
-  /// @TypeGraphQL.omit(output: true)
-  password  String
-  name      String?
-  role      Role     @default(USER)
-  verified  Boolean  @default(false)
-  /// @TypeGraphQL.omit(output: true)
-  createdAt DateTime @default(now()) @map("created_at")
-  /// @TypeGraphQL.omit(output: true)
-  updatedAt DateTime @updatedAt @map("updated_at")
-}
-
 enum Role {
   USER
   ADMIN
+}
+
+model User {
+  id          String   @id @default(cuid())
+  /// @zod.email({ message: "please enter a valid email" })
+  email       String   @unique
+  /// @TypeGraphQL.omit(output: true)
+  password    String
+  name        String?
+  role        Role     @default(USER)
+  verified    Boolean  @default(false)
+  /// @TypeGraphQL.omit(output: true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  /// @TypeGraphQL.omit(output: true)
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  /// @TypeGraphQL.omit(output: true)
+  PostCreated Post[]   @relation("createdByrelation")
+  /// @TypeGraphQL.omit(output: true)
+  PostUpdated Post[]   @relation("upadtedByrelation")
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  content     String?
+  published   Boolean  @default(false)
+  /// @TypeGraphQL.omit(output: true)
+  createdBy   User     @relation("createdByrelation", fields: [createdById], references: [id])
+  /// @TypeGraphQL.omit(output: true)
+  createdById String   @map("created_by")
+  /// @TypeGraphQL.omit(output: true)
+  updated_by  User     @relation("upadtedByrelation", fields: [updatedById], references: [id])
+  /// @TypeGraphQL.omit(output: true)
+  updatedById String   @map("updated_by")
+  /// @TypeGraphQL.omit(output: true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  /// @TypeGraphQL.omit(output: true)
+  updatedAt   DateTime @updatedAt @map("updated_at")
 }

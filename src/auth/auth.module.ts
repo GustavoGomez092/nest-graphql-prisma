@@ -8,6 +8,7 @@ import { UserModule } from 'src/user/user.module';
 import { signIn } from './use-cases/signin';
 import { signUp } from './use-cases/signup';
 import { MailModule } from 'src/mail/mail.module';
+import { EditGuard } from './guards/edit.guard';
 
 @Module({
   imports: [
@@ -23,6 +24,10 @@ import { MailModule } from 'src/mail/mail.module';
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: EditGuard,
     },
     signIn,
     signUp,

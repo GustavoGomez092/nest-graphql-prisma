@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleFilter } from "../inputs/EnumRoleFilter";
+import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
 import { UserWhereInput } from "../inputs/UserWhereInput";
@@ -67,4 +68,14 @@ export class UserWhereUniqueInput {
     nullable: true
   })
   updatedAt?: DateTimeFilter | undefined;
+
+  @Field(_type => PostListRelationFilter, {
+    nullable: true
+  })
+  PostCreated?: PostListRelationFilter | undefined;
+
+  @Field(_type => PostListRelationFilter, {
+    nullable: true
+  })
+  PostUpdated?: PostListRelationFilter | undefined;
 }

@@ -2,7 +2,9 @@ import { Args, ArgsType, Context, Field, Float, ID, Info, InputType, Int, Mutati
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Post } from "../models/Post";
 import { Role } from "../enums/Role";
+import { UserCount } from "../resolvers/outputs/UserCount";
 
 @ObjectType("User", {
   isAbstract: true
@@ -42,4 +44,13 @@ export class User {
   createdAt?: Date;
 
   updatedAt?: Date;
+
+  PostCreated?: Post[];
+
+  PostUpdated?: Post[];
+
+  @Field(_type => UserCount, {
+    nullable: true
+  })
+  _count?: UserCount | null;
 }
