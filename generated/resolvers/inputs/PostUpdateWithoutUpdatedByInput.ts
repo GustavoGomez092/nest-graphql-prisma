@@ -8,8 +8,8 @@ import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStri
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
 import { UserUpdateOneRequiredWithoutPostCreatedNestedInput } from "../inputs/UserUpdateOneRequiredWithoutPostCreatedNestedInput";
 
-@TypeGraphQL.InputType("PostUpdateWithoutUpdated_byInput", {})
-export class PostUpdateWithoutUpdated_byInput {
+@TypeGraphQL.InputType("PostUpdateWithoutUpdatedByInput", {})
+export class PostUpdateWithoutUpdatedByInput {
   @TypeGraphQL.Field(_type => StringFieldUpdateOperationsInput, {
     nullable: true
   })
@@ -29,19 +29,4 @@ export class PostUpdateWithoutUpdated_byInput {
     nullable: true
   })
   published?: BoolFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostCreatedNestedInput, {
-    nullable: true
-  })
-  createdBy?: UserUpdateOneRequiredWithoutPostCreatedNestedInput | undefined;
 }

@@ -44,4 +44,9 @@ export class PostMaxAggregate {
     nullable: true
   })
   updatedAt!: Date | null;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: true
+  })
+  archived!: boolean | null;
 }

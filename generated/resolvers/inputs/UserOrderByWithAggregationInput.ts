@@ -40,15 +40,15 @@ export class UserOrderByWithAggregationInput {
   })
   verified?: "asc" | "desc" | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
+  @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  createdAt?: "asc" | "desc" | undefined;
+  createdById?: SortOrderInput | undefined;
 
-  @TypeGraphQL.Field(_type => SortOrder, {
+  @TypeGraphQL.Field(_type => SortOrderInput, {
     nullable: true
   })
-  updatedAt?: "asc" | "desc" | undefined;
+  updatedById?: SortOrderInput | undefined;
 
   @TypeGraphQL.Field(_type => UserCountOrderByAggregateInput, {
     nullable: true

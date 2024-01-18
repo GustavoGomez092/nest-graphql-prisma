@@ -10,7 +10,7 @@ export const customAuthChecker = async ({ root, args, context, info }): Promise<
   }
 
   try {
-    const JWT = new JwtService({ secret: jwtConstants.secret });
+    const JWT = new JwtService({ secret: process.env.JWT_SECRET });
     const verified = await JWT.verifyAsync(token);
 
     if (!verified) return false;

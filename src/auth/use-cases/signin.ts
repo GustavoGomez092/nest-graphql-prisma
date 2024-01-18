@@ -10,12 +10,11 @@ import { jwtConstants } from '../constants';
 
 @Injectable()
 export class signIn {
-  constructor(private jwtService: JwtService) {}
+  constructor() {}
 
   async handle({ prisma }: Ctx, info: GraphQLResolveInfo, input: SignInInput): Promise<JWTTokenInput> {
     try {
       this.validate(input);
-      console.log('here');
       const user = await prisma.user.findUniqueOrThrow({
         where: {
           email: input.email,
@@ -30,18 +29,19 @@ export class signIn {
 
       const payload = { user: user.id, email: user.email, name: user.name };
 
-      const JWT = new JwtService({ secret: jwtConstants.secret });
+      const JWT = new JwtService({ secret: process.env.JWT_SECRET });
+
       const token = await JWT.signAsync(payload);
 
       return {
         access_token: token,
       };
     } catch (error) {
-      console.log(error.code);
+      console.log(error);
       if (error.code === 'P2025') {
         throw new UnauthorizedException('Invalid credentials');
       }
-      throw error;
+      throw new UnauthorizedException('Access denied');
     }
   }
 

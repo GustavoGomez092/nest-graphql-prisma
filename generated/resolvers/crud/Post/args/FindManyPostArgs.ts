@@ -35,5 +35,5 @@ export class FindManyPostArgs {
   @TypeGraphQL.Field(_type => [PostScalarFieldEnum], {
     nullable: true
   })
-  distinct?: Array<"id" | "title" | "content" | "published" | "createdById" | "updatedById" | "createdAt" | "updatedAt"> | undefined;
+  distinct?: Array<"id" | "title" | "content" | "published" | "createdById" | "updatedById" | "createdAt" | "updatedAt" | "archived"> | undefined;
 }

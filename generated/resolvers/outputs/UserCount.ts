@@ -7,22 +7,22 @@ import { UserCountPostUpdatedArgs } from "./args/UserCountPostUpdatedArgs";
 
 @TypeGraphQL.ObjectType("UserCount", {})
 export class UserCount {
-  PostCreated!: number;
-  PostUpdated!: number;
+  postCreated!: number;
+  postUpdated!: number;
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "PostCreated",
+    name: "postCreated",
     nullable: false
   })
   getPostCreated(@TypeGraphQL.Root() root: UserCount, @TypeGraphQL.Args() args: UserCountPostCreatedArgs): number {
-    return root.PostCreated;
+    return root.postCreated;
   }
 
   @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
-    name: "PostUpdated",
+    name: "postUpdated",
     nullable: false
   })
   getPostUpdated(@TypeGraphQL.Root() root: UserCount, @TypeGraphQL.Args() args: UserCountPostUpdatedArgs): number {
-    return root.PostUpdated;
+    return root.postUpdated;
   }
 }

@@ -39,14 +39,26 @@ model User {
   name        String?
   role        Role     @default(USER)
   verified    Boolean  @default(false)
-  /// @TypeGraphQL.omit(output: true)
-  createdAt   DateTime @default(now()) @map("created_at")
-  /// @TypeGraphQL.omit(output: true)
-  updatedAt   DateTime @updatedAt @map("updated_at")
-  /// @TypeGraphQL.omit(output: true)
-  PostCreated Post[]   @relation("createdByrelation")
-  /// @TypeGraphQL.omit(output: true)
-  PostUpdated Post[]   @relation("upadtedByrelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  createdAt   DateTime @default(now())
+  /// @TypeGraphQL.omit(output: true, input: true)
+  updatedAt   DateTime @updatedAt
+  /// @TypeGraphQL.omit(output: true, input: true)
+  createdBy   User?    @relation("createdByUserRelation", fields: [createdById], references: [id])
+  createdById String?  @unique
+  /// @TypeGraphQL.omit(output: true, input: true)
+  updatedBy   User?    @relation("upadtedByUserRelation", fields: [updatedById], references: [id])
+  updatedById String?  @unique
+  /// @TypeGraphQL.omit(output: true, input: true)
+  postCreated Post[]   @relation("createdByrelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  postUpdated Post[]   @relation("upadtedByrelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  archived    Boolean  @default(false)
+  /// @TypeGraphQL.omit(output: true, input: true)
+  creator     User?    @relation("createdByUserRelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  updater     User?    @relation("upadtedByUserRelation")
 }
 
 model Post {
@@ -54,16 +66,16 @@ model Post {
   title       String
   content     String?
   published   Boolean  @default(false)
-  /// @TypeGraphQL.omit(output: true)
+  /// @TypeGraphQL.omit(output: true, input: true)
   createdBy   User     @relation("createdByrelation", fields: [createdById], references: [id])
-  /// @TypeGraphQL.omit(output: true)
-  createdById String   @map("created_by")
-  /// @TypeGraphQL.omit(output: true)
-  updated_by  User     @relation("upadtedByrelation", fields: [updatedById], references: [id])
-  /// @TypeGraphQL.omit(output: true)
-  updatedById String   @map("updated_by")
-  /// @TypeGraphQL.omit(output: true)
-  createdAt   DateTime @default(now()) @map("created_at")
-  /// @TypeGraphQL.omit(output: true)
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdById String
+  /// @TypeGraphQL.omit(output: true, input: true)
+  updatedBy   User     @relation("upadtedByrelation", fields: [updatedById], references: [id])
+  updatedById String
+  /// @TypeGraphQL.omit(output: true, input: true)
+  createdAt   DateTime @default(now())
+  /// @TypeGraphQL.omit(output: true, input: true)
+  updatedAt   DateTime @updatedAt
+  /// @TypeGraphQL.omit(output: true, input: true)
+  archived    Boolean  @default(false)
 }

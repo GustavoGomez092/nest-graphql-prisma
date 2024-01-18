@@ -8,6 +8,7 @@ import { EnumRoleFilter } from "../inputs/EnumRoleFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
+import { UserNullableRelationFilter } from "../inputs/UserNullableRelationFilter";
 import { UserWhereInput } from "../inputs/UserWhereInput";
 
 @TypeGraphQL.InputType("UserWhereUniqueInput", {})
@@ -21,6 +22,16 @@ export class UserWhereUniqueInput {
     nullable: true
   })
   email?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  createdById?: string | undefined;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  updatedById?: string | undefined;
 
   @TypeGraphQL.Field(_type => [UserWhereInput], {
     nullable: true
@@ -56,24 +67,4 @@ export class UserWhereUniqueInput {
     nullable: true
   })
   verified?: BoolFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
-    nullable: true
-  })
-  createdAt?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFilter, {
-    nullable: true
-  })
-  updatedAt?: DateTimeFilter | undefined;
-
-  @TypeGraphQL.Field(_type => PostListRelationFilter, {
-    nullable: true
-  })
-  PostCreated?: PostListRelationFilter | undefined;
-
-  @TypeGraphQL.Field(_type => PostListRelationFilter, {
-    nullable: true
-  })
-  PostUpdated?: PostListRelationFilter | undefined;
 }

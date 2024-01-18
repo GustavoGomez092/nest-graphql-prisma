@@ -7,27 +7,25 @@ export const PostModel = z.object({
   title: z.string(),
   content: z.string().nullish(),
   published: z.boolean(),
-  /**
-   * @TypeGraphQL.omit(output: true)
-   */
   createdById: z.string(),
-  /**
-   * @TypeGraphQL.omit(output: true)
-   */
   updatedById: z.string(),
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
   createdAt: z.date(),
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
   updatedAt: z.date(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  archived: z.boolean(),
 })
 
 export interface CompletePost extends z.infer<typeof PostModel> {
   createdBy: CompleteUser
-  updated_by: CompleteUser
+  updatedBy: CompleteUser
 }
 
 /**
@@ -37,11 +35,11 @@ export interface CompletePost extends z.infer<typeof PostModel> {
  */
 export const RelatedPostModel: z.ZodSchema<CompletePost> = z.lazy(() => PostModel.extend({
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
   createdBy: RelatedUserModel,
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
-  updated_by: RelatedUserModel,
+  updatedBy: RelatedUserModel,
 }))

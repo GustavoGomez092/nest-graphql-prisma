@@ -43,9 +43,29 @@ export class User {
 
   updatedAt?: Date;
 
-  PostCreated?: Post[];
+  createdBy?: User | null;
 
-  PostUpdated?: Post[];
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  createdById?: string | null;
+
+  updatedBy?: User | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  updatedById?: string | null;
+
+  postCreated?: Post[];
+
+  postUpdated?: Post[];
+
+  archived?: boolean;
+
+  creator?: User | null;
+
+  updater?: User | null;
 
   @TypeGraphQL.Field(_type => UserCount, {
     nullable: true

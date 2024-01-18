@@ -7,8 +7,12 @@ import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdat
 import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { PostUpdateManyWithoutCreatedByNestedInput } from "../inputs/PostUpdateManyWithoutCreatedByNestedInput";
-import { PostUpdateManyWithoutUpdated_byNestedInput } from "../inputs/PostUpdateManyWithoutUpdated_byNestedInput";
+import { PostUpdateManyWithoutUpdatedByNestedInput } from "../inputs/PostUpdateManyWithoutUpdatedByNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { UserUpdateOneWithoutCreatedByNestedInput } from "../inputs/UserUpdateOneWithoutCreatedByNestedInput";
+import { UserUpdateOneWithoutCreatorNestedInput } from "../inputs/UserUpdateOneWithoutCreatorNestedInput";
+import { UserUpdateOneWithoutUpdatedByNestedInput } from "../inputs/UserUpdateOneWithoutUpdatedByNestedInput";
+import { UserUpdateOneWithoutUpdaterNestedInput } from "../inputs/UserUpdateOneWithoutUpdaterNestedInput";
 
 @TypeGraphQL.InputType("UserUpdateInput", {})
 export class UserUpdateInput {
@@ -41,24 +45,4 @@ export class UserUpdateInput {
     nullable: true
   })
   verified?: BoolFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatedByNestedInput, {
-    nullable: true
-  })
-  PostCreated?: PostUpdateManyWithoutCreatedByNestedInput | undefined;
-
-  @TypeGraphQL.Field(_type => PostUpdateManyWithoutUpdated_byNestedInput, {
-    nullable: true
-  })
-  PostUpdated?: PostUpdateManyWithoutUpdated_byNestedInput | undefined;
 }

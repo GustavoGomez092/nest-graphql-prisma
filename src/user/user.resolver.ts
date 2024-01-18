@@ -3,13 +3,13 @@ import { GraphQLResolveInfo } from 'graphql';
 import { CreateOneUser } from './use-cases/create-one-user';
 import { Ctx as Context } from 'src/app.types';
 import { Args, Authorized, Ctx, Info, Mutation, Resolver } from 'type-graphql';
-//         #import-area#
+// #import-area#
 
 @Resolver(User)
 export class UserResolver extends UserCrudResolver {
   constructor(
     private readonly createOneUserUseCase: CreateOneUser,
-    //        #constructor-area#
+    // #constructor-area#
   ) {
     super();
   }

@@ -3,6 +3,10 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { PostCreateNestedManyWithoutCreatedByInput } from "../inputs/PostCreateNestedManyWithoutCreatedByInput";
+import { UserCreateNestedOneWithoutCreatedByInput } from "../inputs/UserCreateNestedOneWithoutCreatedByInput";
+import { UserCreateNestedOneWithoutCreatorInput } from "../inputs/UserCreateNestedOneWithoutCreatorInput";
+import { UserCreateNestedOneWithoutUpdatedByInput } from "../inputs/UserCreateNestedOneWithoutUpdatedByInput";
+import { UserCreateNestedOneWithoutUpdaterInput } from "../inputs/UserCreateNestedOneWithoutUpdaterInput";
 import { Role } from "../../enums/Role";
 
 @TypeGraphQL.InputType("UserCreateWithoutPostUpdatedInput", {})
@@ -36,19 +40,4 @@ export class UserCreateWithoutPostUpdatedInput {
     nullable: true
   })
   verified?: boolean | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => PostCreateNestedManyWithoutCreatedByInput, {
-    nullable: true
-  })
-  PostCreated?: PostCreateNestedManyWithoutCreatedByInput | undefined;
 }

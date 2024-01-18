@@ -49,6 +49,21 @@ export class UserGroupBy {
   })
   updatedAt!: Date;
 
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  createdById!: string | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  updatedById!: string | null;
+
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  archived!: boolean;
+
   @TypeGraphQL.Field(_type => UserCountAggregate, {
     nullable: true
   })

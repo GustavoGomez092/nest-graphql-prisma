@@ -26,24 +26,4 @@ export class PostCreateInput {
     nullable: true
   })
   published?: boolean | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutPostCreatedInput, {
-    nullable: false
-  })
-  createdBy!: UserCreateNestedOneWithoutPostCreatedInput;
-
-  @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutPostUpdatedInput, {
-    nullable: false
-  })
-  updated_by!: UserCreateNestedOneWithoutPostUpdatedInput;
 }

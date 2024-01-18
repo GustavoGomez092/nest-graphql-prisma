@@ -29,14 +29,4 @@ export class PostCreateManyCreatedByInput {
     nullable: false
   })
   updatedById!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
 }

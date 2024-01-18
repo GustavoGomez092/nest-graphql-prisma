@@ -48,6 +48,11 @@ export class PostGroupBy {
   })
   updatedAt!: Date;
 
+  @TypeGraphQL.Field(_type => Boolean, {
+    nullable: false
+  })
+  archived!: boolean;
+
   @TypeGraphQL.Field(_type => PostCountAggregate, {
     nullable: true
   })

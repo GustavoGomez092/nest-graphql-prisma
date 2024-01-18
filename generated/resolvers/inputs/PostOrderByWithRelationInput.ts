@@ -37,24 +37,4 @@ export class PostOrderByWithRelationInput {
     nullable: true
   })
   updatedById?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  createdAt?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => SortOrder, {
-    nullable: true
-  })
-  updatedAt?: "asc" | "desc" | undefined;
-
-  @TypeGraphQL.Field(_type => UserOrderByWithRelationInput, {
-    nullable: true
-  })
-  createdBy?: UserOrderByWithRelationInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserOrderByWithRelationInput, {
-    nullable: true
-  })
-  updated_by?: UserOrderByWithRelationInput | undefined;
 }

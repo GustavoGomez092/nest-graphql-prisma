@@ -130,10 +130,10 @@ const fileGenerator = async (model, mutation) => {
           const resolverFile = `./src/${decapitalizedModel}/${decapitalizedModel}.resolver.ts`;
           // add method import to resolver
           resolver = readFileSync(resolverFile, 'utf-8');
-          let modified = resolver.replace(/#import-area#/g, ` #import-area# \nimport { ${capitalM} } from './use-cases/${kebabM}';`);
-          modified = modified.replace(/#import-area#/g, ` #import-area# \nimport { ${capitalM}Args } from 'generated';`);
+          let modified = resolver.replace(/#import-area#/g, `#import-area# \nimport { ${capitalM} } from './use-cases/${kebabM}';`);
+          modified = modified.replace(/#import-area#/g, `#import-area# \nimport { ${capitalM}Args } from 'generated';`);
           // add constructor declaration resolver
-          modified = modified.replace(/#constructor-area#/g, ` #constructor-area# \nprivate readonly ${m}UseCase: ${capitalM},`);
+          modified = modified.replace(/#constructor-area#/g, `#constructor-area# \nprivate readonly ${m}UseCase: ${capitalM},`);
           // add method import to resolver
           modified = modified.replace(/#methods-area#/g, `#methods-area# 
     @Authorized()
@@ -149,19 +149,19 @@ const fileGenerator = async (model, mutation) => {
           const moduleFile = `./src/${decapitalizedModel}/${decapitalizedModel}.module.ts`;
           module = readFileSync(moduleFile, 'utf-8');
           // add method import to module
-          modified = module.replace(/#import-area#/g, ` #import-area# \nimport { ${capitalM} } from './use-cases/${kebabM}';`);
+          modified = module.replace(/#import-area#/g, `#import-area# \nimport { ${capitalM} } from './use-cases/${kebabM}';`);
           // add method to providers array
-          modified = modified.replace(/\[/g, ` [ \n    ${capitalM},`);
+          modified = modified.replace(/\[/g, `[${capitalM}, `);
 
           module = modified;
           writeFileSync(moduleFile, modified);
 
           // App module file modifications
-          const appModuleFile = `./src/app.module.ts`;
-          let appModule = readFileSync(appModuleFile, 'utf-8');
-          let modifiedAppModule = appModule.replace(/#import-area#/g, `#import-area# \nimport { ${capitalM} } from './${decapitalizedModel}/use-cases/${kebabM}';`);
-          modifiedAppModule = modifiedAppModule.replace(/providers: \[/g, `providers: [\n        ${capitalM},`);
-          writeFileSync(appModuleFile, modifiedAppModule);
+          const useCasesFile = `./src/use-cases.ts`;
+          let useCases = readFileSync(useCasesFile, 'utf-8');
+          let modifieduseCases = useCases.replace(/#import-area#/g, `#import-area# \nimport { ${capitalM} } from './${decapitalizedModel}/use-cases/${kebabM}';`);
+          modifieduseCases = modifieduseCases.replace(/= \[/g, `= [${capitalM}, `);
+          writeFileSync(useCasesFile, modifieduseCases);
         });
 
       resolve(true);

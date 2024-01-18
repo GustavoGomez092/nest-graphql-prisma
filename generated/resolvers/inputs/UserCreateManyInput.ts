@@ -36,13 +36,13 @@ export class UserCreateManyInput {
   })
   verified?: boolean | undefined;
 
-  @TypeGraphQL.Field(_type => Date, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  createdAt?: Date | undefined;
+  createdById?: string | undefined;
 
-  @TypeGraphQL.Field(_type => Date, {
+  @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
-  updatedAt?: Date | undefined;
+  updatedById?: string | undefined;
 }

@@ -3,8 +3,8 @@ import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 
-@TypeGraphQL.InputType("PostCreateManyUpdated_byInput", {})
-export class PostCreateManyUpdated_byInput {
+@TypeGraphQL.InputType("PostCreateManyUpdatedByInput", {})
+export class PostCreateManyUpdatedByInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -29,14 +29,4 @@ export class PostCreateManyUpdated_byInput {
     nullable: false
   })
   createdById!: string;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
 }

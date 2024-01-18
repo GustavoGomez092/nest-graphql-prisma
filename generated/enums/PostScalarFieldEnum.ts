@@ -8,7 +8,8 @@ export enum PostScalarFieldEnum {
   createdById = "createdById",
   updatedById = "updatedById",
   createdAt = "createdAt",
-  updatedAt = "updatedAt"
+  updatedAt = "updatedAt",
+  archived = "archived"
 }
 TypeGraphQL.registerEnumType(PostScalarFieldEnum, {
   name: "PostScalarFieldEnum",

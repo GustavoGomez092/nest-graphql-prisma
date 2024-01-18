@@ -28,13 +28,21 @@ export class Post {
 
   createdBy?: User;
 
-  createdById?: string;
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  createdById!: string;
 
-  updated_by?: User;
+  updatedBy?: User;
 
-  updatedById?: string;
+  @TypeGraphQL.Field(_type => String, {
+    nullable: false
+  })
+  updatedById!: string;
 
   createdAt?: Date;
 
   updatedAt?: Date;
+
+  archived?: boolean;
 }

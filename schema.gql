@@ -36,39 +36,10 @@ input BoolWithAggregatesFilter {
   not: NestedBoolWithAggregatesFilter
 }
 
-input DateTimeFieldUpdateOperationsInput {
-  set: DateTimeISO
-}
-
-input DateTimeFilter {
-  equals: DateTimeISO
-  gt: DateTimeISO
-  gte: DateTimeISO
-  in: [DateTimeISO!]
-  lt: DateTimeISO
-  lte: DateTimeISO
-  not: NestedDateTimeFilter
-  notIn: [DateTimeISO!]
-}
-
 """
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.This scalar is serialized to a string in ISO 8601 format and parsed from a string in ISO 8601 format.
 """
 scalar DateTimeISO
-
-input DateTimeWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedDateTimeFilter
-  _min: NestedDateTimeFilter
-  equals: DateTimeISO
-  gt: DateTimeISO
-  gte: DateTimeISO
-  in: [DateTimeISO!]
-  lt: DateTimeISO
-  lte: DateTimeISO
-  not: NestedDateTimeWithAggregatesFilter
-  notIn: [DateTimeISO!]
-}
 
 input EnumRoleFieldUpdateOperationsInput {
   set: Role
@@ -125,31 +96,6 @@ input NestedBoolWithAggregatesFilter {
   _min: NestedBoolFilter
   equals: Boolean
   not: NestedBoolWithAggregatesFilter
-}
-
-input NestedDateTimeFilter {
-  equals: DateTimeISO
-  gt: DateTimeISO
-  gte: DateTimeISO
-  in: [DateTimeISO!]
-  lt: DateTimeISO
-  lte: DateTimeISO
-  not: NestedDateTimeFilter
-  notIn: [DateTimeISO!]
-}
-
-input NestedDateTimeWithAggregatesFilter {
-  _count: NestedIntFilter
-  _max: NestedDateTimeFilter
-  _min: NestedDateTimeFilter
-  equals: DateTimeISO
-  gt: DateTimeISO
-  gte: DateTimeISO
-  in: [DateTimeISO!]
-  lt: DateTimeISO
-  lte: DateTimeISO
-  not: NestedDateTimeWithAggregatesFilter
-  notIn: [DateTimeISO!]
 }
 
 input NestedEnumRoleFilter {
@@ -264,13 +210,16 @@ enum NullsOrder {
 
 type Post {
   content: String
+  createdById: String!
   id: String!
   published: Boolean!
   title: String!
+  updatedById: String!
 }
 
 type PostCountAggregate {
   _all: Int!
+  archived: Int!
   content: Int!
   createdAt: Int!
   createdById: Int!
@@ -283,115 +232,34 @@ type PostCountAggregate {
 
 input PostCountOrderByAggregateInput {
   content: SortOrder
-  createdAt: SortOrder
   createdById: SortOrder
   id: SortOrder
   published: SortOrder
   title: SortOrder
-  updatedAt: SortOrder
   updatedById: SortOrder
 }
 
 input PostCreateInput {
   content: String
-  createdAt: DateTimeISO
-  createdBy: UserCreateNestedOneWithoutPostCreatedInput!
   id: String
   published: Boolean
   title: String!
-  updatedAt: DateTimeISO
-  updated_by: UserCreateNestedOneWithoutPostUpdatedInput!
-}
-
-input PostCreateManyCreatedByInput {
-  content: String
-  createdAt: DateTimeISO
-  id: String
-  published: Boolean
-  title: String!
-  updatedAt: DateTimeISO
-  updatedById: String!
-}
-
-input PostCreateManyCreatedByInputEnvelope {
-  data: [PostCreateManyCreatedByInput!]!
-  skipDuplicates: Boolean
 }
 
 input PostCreateManyInput {
   content: String
-  createdAt: DateTimeISO
   createdById: String!
   id: String
   published: Boolean
   title: String!
-  updatedAt: DateTimeISO
   updatedById: String!
-}
-
-input PostCreateManyUpdated_byInput {
-  content: String
-  createdAt: DateTimeISO
-  createdById: String!
-  id: String
-  published: Boolean
-  title: String!
-  updatedAt: DateTimeISO
-}
-
-input PostCreateManyUpdated_byInputEnvelope {
-  data: [PostCreateManyUpdated_byInput!]!
-  skipDuplicates: Boolean
-}
-
-input PostCreateNestedManyWithoutCreatedByInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutCreatedByInput!]
-  create: [PostCreateWithoutCreatedByInput!]
-  createMany: PostCreateManyCreatedByInputEnvelope
-}
-
-input PostCreateNestedManyWithoutUpdated_byInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutUpdated_byInput!]
-  create: [PostCreateWithoutUpdated_byInput!]
-  createMany: PostCreateManyUpdated_byInputEnvelope
-}
-
-input PostCreateOrConnectWithoutCreatedByInput {
-  create: PostCreateWithoutCreatedByInput!
-  where: PostWhereUniqueInput!
-}
-
-input PostCreateOrConnectWithoutUpdated_byInput {
-  create: PostCreateWithoutUpdated_byInput!
-  where: PostWhereUniqueInput!
-}
-
-input PostCreateWithoutCreatedByInput {
-  content: String
-  createdAt: DateTimeISO
-  id: String
-  published: Boolean
-  title: String!
-  updatedAt: DateTimeISO
-  updated_by: UserCreateNestedOneWithoutPostUpdatedInput!
-}
-
-input PostCreateWithoutUpdated_byInput {
-  content: String
-  createdAt: DateTimeISO
-  createdBy: UserCreateNestedOneWithoutPostCreatedInput!
-  id: String
-  published: Boolean
-  title: String!
-  updatedAt: DateTimeISO
 }
 
 type PostGroupBy {
   _count: PostCountAggregate
   _max: PostMaxAggregate
   _min: PostMinAggregate
+  archived: Boolean!
   content: String
   createdAt: DateTimeISO!
   createdById: String!
@@ -402,13 +270,8 @@ type PostGroupBy {
   updatedById: String!
 }
 
-input PostListRelationFilter {
-  every: PostWhereInput
-  none: PostWhereInput
-  some: PostWhereInput
-}
-
 type PostMaxAggregate {
+  archived: Boolean
   content: String
   createdAt: DateTimeISO
   createdById: String
@@ -421,16 +284,15 @@ type PostMaxAggregate {
 
 input PostMaxOrderByAggregateInput {
   content: SortOrder
-  createdAt: SortOrder
   createdById: SortOrder
   id: SortOrder
   published: SortOrder
   title: SortOrder
-  updatedAt: SortOrder
   updatedById: SortOrder
 }
 
 type PostMinAggregate {
+  archived: Boolean
   content: String
   createdAt: DateTimeISO
   createdById: String
@@ -443,17 +305,11 @@ type PostMinAggregate {
 
 input PostMinOrderByAggregateInput {
   content: SortOrder
-  createdAt: SortOrder
   createdById: SortOrder
   id: SortOrder
   published: SortOrder
   title: SortOrder
-  updatedAt: SortOrder
   updatedById: SortOrder
-}
-
-input PostOrderByRelationAggregateInput {
-  _count: SortOrder
 }
 
 input PostOrderByWithAggregationInput {
@@ -461,29 +317,24 @@ input PostOrderByWithAggregationInput {
   _max: PostMaxOrderByAggregateInput
   _min: PostMinOrderByAggregateInput
   content: SortOrderInput
-  createdAt: SortOrder
   createdById: SortOrder
   id: SortOrder
   published: SortOrder
   title: SortOrder
-  updatedAt: SortOrder
   updatedById: SortOrder
 }
 
 input PostOrderByWithRelationInput {
   content: SortOrderInput
-  createdAt: SortOrder
-  createdBy: UserOrderByWithRelationInput
   createdById: SortOrder
   id: SortOrder
   published: SortOrder
   title: SortOrder
-  updatedAt: SortOrder
   updatedById: SortOrder
-  updated_by: UserOrderByWithRelationInput
 }
 
 enum PostScalarFieldEnum {
+  archived
   content
   createdAt
   createdById
@@ -494,132 +345,30 @@ enum PostScalarFieldEnum {
   updatedById
 }
 
-input PostScalarWhereInput {
-  AND: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  content: StringNullableFilter
-  createdAt: DateTimeFilter
-  createdById: StringFilter
-  id: StringFilter
-  published: BoolFilter
-  title: StringFilter
-  updatedAt: DateTimeFilter
-  updatedById: StringFilter
-}
-
 input PostScalarWhereWithAggregatesInput {
   AND: [PostScalarWhereWithAggregatesInput!]
   NOT: [PostScalarWhereWithAggregatesInput!]
   OR: [PostScalarWhereWithAggregatesInput!]
   content: StringNullableWithAggregatesFilter
-  createdAt: DateTimeWithAggregatesFilter
   createdById: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
   published: BoolWithAggregatesFilter
   title: StringWithAggregatesFilter
-  updatedAt: DateTimeWithAggregatesFilter
   updatedById: StringWithAggregatesFilter
 }
 
 input PostUpdateInput {
   content: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  createdBy: UserUpdateOneRequiredWithoutPostCreatedNestedInput
   id: StringFieldUpdateOperationsInput
   published: BoolFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  updated_by: UserUpdateOneRequiredWithoutPostUpdatedNestedInput
 }
 
 input PostUpdateManyMutationInput {
   content: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   published: BoolFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input PostUpdateManyWithWhereWithoutCreatedByInput {
-  data: PostUpdateManyMutationInput!
-  where: PostScalarWhereInput!
-}
-
-input PostUpdateManyWithWhereWithoutUpdated_byInput {
-  data: PostUpdateManyMutationInput!
-  where: PostScalarWhereInput!
-}
-
-input PostUpdateManyWithoutCreatedByNestedInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutCreatedByInput!]
-  create: [PostCreateWithoutCreatedByInput!]
-  createMany: PostCreateManyCreatedByInputEnvelope
-  delete: [PostWhereUniqueInput!]
-  deleteMany: [PostScalarWhereInput!]
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutCreatedByInput!]
-  updateMany: [PostUpdateManyWithWhereWithoutCreatedByInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutCreatedByInput!]
-}
-
-input PostUpdateManyWithoutUpdated_byNestedInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutUpdated_byInput!]
-  create: [PostCreateWithoutUpdated_byInput!]
-  createMany: PostCreateManyUpdated_byInputEnvelope
-  delete: [PostWhereUniqueInput!]
-  deleteMany: [PostScalarWhereInput!]
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutUpdated_byInput!]
-  updateMany: [PostUpdateManyWithWhereWithoutUpdated_byInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutUpdated_byInput!]
-}
-
-input PostUpdateWithWhereUniqueWithoutCreatedByInput {
-  data: PostUpdateWithoutCreatedByInput!
-  where: PostWhereUniqueInput!
-}
-
-input PostUpdateWithWhereUniqueWithoutUpdated_byInput {
-  data: PostUpdateWithoutUpdated_byInput!
-  where: PostWhereUniqueInput!
-}
-
-input PostUpdateWithoutCreatedByInput {
-  content: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  published: BoolFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  updated_by: UserUpdateOneRequiredWithoutPostUpdatedNestedInput
-}
-
-input PostUpdateWithoutUpdated_byInput {
-  content: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  createdBy: UserUpdateOneRequiredWithoutPostCreatedNestedInput
-  id: StringFieldUpdateOperationsInput
-  published: BoolFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input PostUpsertWithWhereUniqueWithoutCreatedByInput {
-  create: PostCreateWithoutCreatedByInput!
-  update: PostUpdateWithoutCreatedByInput!
-  where: PostWhereUniqueInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutUpdated_byInput {
-  create: PostCreateWithoutUpdated_byInput!
-  update: PostUpdateWithoutUpdated_byInput!
-  where: PostWhereUniqueInput!
 }
 
 input PostWhereInput {
@@ -627,15 +376,11 @@ input PostWhereInput {
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   content: StringNullableFilter
-  createdAt: DateTimeFilter
-  createdBy: UserRelationFilter
   createdById: StringFilter
   id: StringFilter
   published: BoolFilter
   title: StringFilter
-  updatedAt: DateTimeFilter
   updatedById: StringFilter
-  updated_by: UserRelationFilter
 }
 
 input PostWhereUniqueInput {
@@ -643,15 +388,11 @@ input PostWhereUniqueInput {
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
   content: StringNullableFilter
-  createdAt: DateTimeFilter
-  createdBy: UserRelationFilter
   createdById: StringFilter
   id: String
   published: BoolFilter
   title: StringFilter
-  updatedAt: DateTimeFilter
   updatedById: StringFilter
-  updated_by: UserRelationFilter
 }
 
 type Query {
@@ -763,110 +504,65 @@ input StringWithAggregatesFilter {
 
 type User {
   _count: UserCount
+  createdById: String
 
   """@zod.email({ message: "please enter a valid email" })"""
   email: String!
   id: String!
   name: String
   role: Role!
+  updatedById: String
   verified: Boolean!
 }
 
 type UserCount {
-  PostCreated(where: PostWhereInput): Int!
-  PostUpdated(where: PostWhereInput): Int!
+  postCreated(where: PostWhereInput): Int!
+  postUpdated(where: PostWhereInput): Int!
 }
 
 type UserCountAggregate {
   _all: Int!
+  archived: Int!
   createdAt: Int!
+  createdById: Int!
   email: Int!
   id: Int!
   name: Int!
   password: Int!
   role: Int!
   updatedAt: Int!
+  updatedById: Int!
   verified: Int!
 }
 
 input UserCountOrderByAggregateInput {
-  createdAt: SortOrder
+  createdById: SortOrder
   email: SortOrder
   id: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
-  updatedAt: SortOrder
+  updatedById: SortOrder
   verified: SortOrder
 }
 
 input UserCreateInput {
-  PostCreated: PostCreateNestedManyWithoutCreatedByInput
-  PostUpdated: PostCreateNestedManyWithoutUpdated_byInput
-  createdAt: DateTimeISO
   email: String!
   id: String
   name: String
   password: String!
   role: Role
-  updatedAt: DateTimeISO
   verified: Boolean
 }
 
 input UserCreateManyInput {
-  createdAt: DateTimeISO
+  createdById: String
   email: String!
   id: String
   name: String
   password: String!
   role: Role
-  updatedAt: DateTimeISO
-  verified: Boolean
-}
-
-input UserCreateNestedOneWithoutPostCreatedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPostCreatedInput
-  create: UserCreateWithoutPostCreatedInput
-}
-
-input UserCreateNestedOneWithoutPostUpdatedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPostUpdatedInput
-  create: UserCreateWithoutPostUpdatedInput
-}
-
-input UserCreateOrConnectWithoutPostCreatedInput {
-  create: UserCreateWithoutPostCreatedInput!
-  where: UserWhereUniqueInput!
-}
-
-input UserCreateOrConnectWithoutPostUpdatedInput {
-  create: UserCreateWithoutPostUpdatedInput!
-  where: UserWhereUniqueInput!
-}
-
-input UserCreateWithoutPostCreatedInput {
-  PostUpdated: PostCreateNestedManyWithoutUpdated_byInput
-  createdAt: DateTimeISO
-  email: String!
-  id: String
-  name: String
-  password: String!
-  role: Role
-  updatedAt: DateTimeISO
-  verified: Boolean
-}
-
-input UserCreateWithoutPostUpdatedInput {
-  PostCreated: PostCreateNestedManyWithoutCreatedByInput
-  createdAt: DateTimeISO
-  email: String!
-  id: String
-  name: String
-  password: String!
-  role: Role
-  updatedAt: DateTimeISO
+  updatedById: String
   verified: Boolean
 }
 
@@ -874,57 +570,66 @@ type UserGroupBy {
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
+  archived: Boolean!
   createdAt: DateTimeISO!
+  createdById: String
   email: String!
   id: String!
   name: String
   password: String!
   role: Role!
   updatedAt: DateTimeISO!
+  updatedById: String
   verified: Boolean!
 }
 
 type UserMaxAggregate {
+  archived: Boolean
   createdAt: DateTimeISO
+  createdById: String
   email: String
   id: String
   name: String
   password: String
   role: Role
   updatedAt: DateTimeISO
+  updatedById: String
   verified: Boolean
 }
 
 input UserMaxOrderByAggregateInput {
-  createdAt: SortOrder
+  createdById: SortOrder
   email: SortOrder
   id: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
-  updatedAt: SortOrder
+  updatedById: SortOrder
   verified: SortOrder
 }
 
 type UserMinAggregate {
+  archived: Boolean
   createdAt: DateTimeISO
+  createdById: String
   email: String
   id: String
   name: String
   password: String
   role: Role
   updatedAt: DateTimeISO
+  updatedById: String
   verified: Boolean
 }
 
 input UserMinOrderByAggregateInput {
-  createdAt: SortOrder
+  createdById: SortOrder
   email: SortOrder
   id: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
-  updatedAt: SortOrder
+  updatedById: SortOrder
   verified: SortOrder
 }
 
@@ -932,42 +637,38 @@ input UserOrderByWithAggregationInput {
   _count: UserCountOrderByAggregateInput
   _max: UserMaxOrderByAggregateInput
   _min: UserMinOrderByAggregateInput
-  createdAt: SortOrder
+  createdById: SortOrderInput
   email: SortOrder
   id: SortOrder
   name: SortOrderInput
   password: SortOrder
   role: SortOrder
-  updatedAt: SortOrder
+  updatedById: SortOrderInput
   verified: SortOrder
 }
 
 input UserOrderByWithRelationInput {
-  PostCreated: PostOrderByRelationAggregateInput
-  PostUpdated: PostOrderByRelationAggregateInput
-  createdAt: SortOrder
+  createdById: SortOrderInput
   email: SortOrder
   id: SortOrder
   name: SortOrderInput
   password: SortOrder
   role: SortOrder
-  updatedAt: SortOrder
+  updatedById: SortOrderInput
   verified: SortOrder
 }
 
-input UserRelationFilter {
-  is: UserWhereInput
-  isNot: UserWhereInput
-}
-
 enum UserScalarFieldEnum {
+  archived
   createdAt
+  createdById
   email
   id
   name
   password
   role
   updatedAt
+  updatedById
   verified
 }
 
@@ -975,115 +676,45 @@ input UserScalarWhereWithAggregatesInput {
   AND: [UserScalarWhereWithAggregatesInput!]
   NOT: [UserScalarWhereWithAggregatesInput!]
   OR: [UserScalarWhereWithAggregatesInput!]
-  createdAt: DateTimeWithAggregatesFilter
+  createdById: StringNullableWithAggregatesFilter
   email: StringWithAggregatesFilter
   id: StringWithAggregatesFilter
   name: StringNullableWithAggregatesFilter
   password: StringWithAggregatesFilter
   role: EnumRoleWithAggregatesFilter
-  updatedAt: DateTimeWithAggregatesFilter
+  updatedById: StringNullableWithAggregatesFilter
   verified: BoolWithAggregatesFilter
 }
 
 input UserUpdateInput {
-  PostCreated: PostUpdateManyWithoutCreatedByNestedInput
-  PostUpdated: PostUpdateManyWithoutUpdated_byNestedInput
-  createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
   verified: BoolFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
-  createdAt: DateTimeFieldUpdateOperationsInput
   email: StringFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
   verified: BoolFieldUpdateOperationsInput
-}
-
-input UserUpdateOneRequiredWithoutPostCreatedNestedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPostCreatedInput
-  create: UserCreateWithoutPostCreatedInput
-  update: UserUpdateToOneWithWhereWithoutPostCreatedInput
-  upsert: UserUpsertWithoutPostCreatedInput
-}
-
-input UserUpdateOneRequiredWithoutPostUpdatedNestedInput {
-  connect: UserWhereUniqueInput
-  connectOrCreate: UserCreateOrConnectWithoutPostUpdatedInput
-  create: UserCreateWithoutPostUpdatedInput
-  update: UserUpdateToOneWithWhereWithoutPostUpdatedInput
-  upsert: UserUpsertWithoutPostUpdatedInput
-}
-
-input UserUpdateToOneWithWhereWithoutPostCreatedInput {
-  data: UserUpdateWithoutPostCreatedInput!
-  where: UserWhereInput
-}
-
-input UserUpdateToOneWithWhereWithoutPostUpdatedInput {
-  data: UserUpdateWithoutPostUpdatedInput!
-  where: UserWhereInput
-}
-
-input UserUpdateWithoutPostCreatedInput {
-  PostUpdated: PostUpdateManyWithoutUpdated_byNestedInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  verified: BoolFieldUpdateOperationsInput
-}
-
-input UserUpdateWithoutPostUpdatedInput {
-  PostCreated: PostUpdateManyWithoutCreatedByNestedInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  email: StringFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  name: NullableStringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
-  role: EnumRoleFieldUpdateOperationsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-  verified: BoolFieldUpdateOperationsInput
-}
-
-input UserUpsertWithoutPostCreatedInput {
-  create: UserCreateWithoutPostCreatedInput!
-  update: UserUpdateWithoutPostCreatedInput!
-  where: UserWhereInput
-}
-
-input UserUpsertWithoutPostUpdatedInput {
-  create: UserCreateWithoutPostUpdatedInput!
-  update: UserUpdateWithoutPostUpdatedInput!
-  where: UserWhereInput
 }
 
 input UserWhereInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  PostCreated: PostListRelationFilter
-  PostUpdated: PostListRelationFilter
-  createdAt: DateTimeFilter
+  createdById: StringNullableFilter
   email: StringFilter
   id: StringFilter
   name: StringNullableFilter
   password: StringFilter
   role: EnumRoleFilter
-  updatedAt: DateTimeFilter
+  updatedById: StringNullableFilter
   verified: BoolFilter
 }
 
@@ -1091,14 +722,12 @@ input UserWhereUniqueInput {
   AND: [UserWhereInput!]
   NOT: [UserWhereInput!]
   OR: [UserWhereInput!]
-  PostCreated: PostListRelationFilter
-  PostUpdated: PostListRelationFilter
-  createdAt: DateTimeFilter
+  createdById: String
   email: String
   id: String
   name: StringNullableFilter
   password: StringFilter
   role: EnumRoleFilter
-  updatedAt: DateTimeFilter
+  updatedById: String
   verified: BoolFilter
 }

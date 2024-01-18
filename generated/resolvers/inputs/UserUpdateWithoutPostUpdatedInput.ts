@@ -8,6 +8,10 @@ import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdat
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { PostUpdateManyWithoutCreatedByNestedInput } from "../inputs/PostUpdateManyWithoutCreatedByNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { UserUpdateOneWithoutCreatedByNestedInput } from "../inputs/UserUpdateOneWithoutCreatedByNestedInput";
+import { UserUpdateOneWithoutCreatorNestedInput } from "../inputs/UserUpdateOneWithoutCreatorNestedInput";
+import { UserUpdateOneWithoutUpdatedByNestedInput } from "../inputs/UserUpdateOneWithoutUpdatedByNestedInput";
+import { UserUpdateOneWithoutUpdaterNestedInput } from "../inputs/UserUpdateOneWithoutUpdaterNestedInput";
 
 @TypeGraphQL.InputType("UserUpdateWithoutPostUpdatedInput", {})
 export class UserUpdateWithoutPostUpdatedInput {
@@ -40,19 +44,4 @@ export class UserUpdateWithoutPostUpdatedInput {
     nullable: true
   })
   verified?: BoolFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => PostUpdateManyWithoutCreatedByNestedInput, {
-    nullable: true
-  })
-  PostCreated?: PostUpdateManyWithoutCreatedByNestedInput | undefined;
 }

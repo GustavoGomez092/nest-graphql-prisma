@@ -4,8 +4,8 @@ import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
 import { UserCreateNestedOneWithoutPostCreatedInput } from "../inputs/UserCreateNestedOneWithoutPostCreatedInput";
 
-@TypeGraphQL.InputType("PostCreateWithoutUpdated_byInput", {})
-export class PostCreateWithoutUpdated_byInput {
+@TypeGraphQL.InputType("PostCreateWithoutUpdatedByInput", {})
+export class PostCreateWithoutUpdatedByInput {
   @TypeGraphQL.Field(_type => String, {
     nullable: true
   })
@@ -25,19 +25,4 @@ export class PostCreateWithoutUpdated_byInput {
     nullable: true
   })
   published?: boolean | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  createdAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => Date, {
-    nullable: true
-  })
-  updatedAt?: Date | undefined;
-
-  @TypeGraphQL.Field(_type => UserCreateNestedOneWithoutPostCreatedInput, {
-    nullable: false
-  })
-  createdBy!: UserCreateNestedOneWithoutPostCreatedInput;
 }

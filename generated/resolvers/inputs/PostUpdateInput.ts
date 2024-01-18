@@ -30,24 +30,4 @@ export class PostUpdateInput {
     nullable: true
   })
   published?: BoolFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  createdAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => DateTimeFieldUpdateOperationsInput, {
-    nullable: true
-  })
-  updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostCreatedNestedInput, {
-    nullable: true
-  })
-  createdBy?: UserUpdateOneRequiredWithoutPostCreatedNestedInput | undefined;
-
-  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostUpdatedNestedInput, {
-    nullable: true
-  })
-  updated_by?: UserUpdateOneRequiredWithoutPostUpdatedNestedInput | undefined;
 }

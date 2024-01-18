@@ -14,18 +14,28 @@ export const UserModel = z.object({
   role: z.nativeEnum(Role),
   verified: z.boolean(),
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
   createdAt: z.date(),
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
   updatedAt: z.date(),
+  createdById: z.string().nullish(),
+  updatedById: z.string().nullish(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  archived: z.boolean(),
 })
 
 export interface CompleteUser extends z.infer<typeof UserModel> {
-  PostCreated: CompletePost[]
-  PostUpdated: CompletePost[]
+  createdBy?: CompleteUser | null
+  updatedBy?: CompleteUser | null
+  postCreated: CompletePost[]
+  postUpdated: CompletePost[]
+  creator?: CompleteUser | null
+  updater?: CompleteUser | null
 }
 
 /**
@@ -35,11 +45,27 @@ export interface CompleteUser extends z.infer<typeof UserModel> {
  */
 export const RelatedUserModel: z.ZodSchema<CompleteUser> = z.lazy(() => UserModel.extend({
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
-  PostCreated: RelatedPostModel.array(),
+  createdBy: RelatedUserModel.nullish(),
   /**
-   * @TypeGraphQL.omit(output: true)
+   * @TypeGraphQL.omit(output: true, input: true)
    */
-  PostUpdated: RelatedPostModel.array(),
+  updatedBy: RelatedUserModel.nullish(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  postCreated: RelatedPostModel.array(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  postUpdated: RelatedPostModel.array(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  creator: RelatedUserModel.nullish(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  updater: RelatedUserModel.nullish(),
 }))

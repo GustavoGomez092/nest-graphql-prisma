@@ -40,8 +40,13 @@ export class PostUpdateWithoutCreatedByInput {
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
+  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
+    nullable: true
+  })
+  archived?: BoolFieldUpdateOperationsInput | undefined;
+
   @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostUpdatedNestedInput, {
     nullable: true
   })
-  updated_by?: UserUpdateOneRequiredWithoutPostUpdatedNestedInput | undefined;
+  updatedBy?: UserUpdateOneRequiredWithoutPostUpdatedNestedInput | undefined;
 }

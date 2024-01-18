@@ -55,13 +55,13 @@ export class UserScalarWhereWithAggregatesInput {
   })
   verified?: BoolWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  createdAt?: DateTimeWithAggregatesFilter | undefined;
+  createdById?: StringNullableWithAggregatesFilter | undefined;
 
-  @TypeGraphQL.Field(_type => DateTimeWithAggregatesFilter, {
+  @TypeGraphQL.Field(_type => StringNullableWithAggregatesFilter, {
     nullable: true
   })
-  updatedAt?: DateTimeWithAggregatesFilter | undefined;
+  updatedById?: StringNullableWithAggregatesFilter | undefined;
 }

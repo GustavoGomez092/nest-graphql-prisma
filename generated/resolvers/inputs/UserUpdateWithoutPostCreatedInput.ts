@@ -6,8 +6,12 @@ import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperati
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { EnumRoleFieldUpdateOperationsInput } from "../inputs/EnumRoleFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
-import { PostUpdateManyWithoutUpdated_byNestedInput } from "../inputs/PostUpdateManyWithoutUpdated_byNestedInput";
+import { PostUpdateManyWithoutUpdatedByNestedInput } from "../inputs/PostUpdateManyWithoutUpdatedByNestedInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
+import { UserUpdateOneWithoutCreatedByNestedInput } from "../inputs/UserUpdateOneWithoutCreatedByNestedInput";
+import { UserUpdateOneWithoutCreatorNestedInput } from "../inputs/UserUpdateOneWithoutCreatorNestedInput";
+import { UserUpdateOneWithoutUpdatedByNestedInput } from "../inputs/UserUpdateOneWithoutUpdatedByNestedInput";
+import { UserUpdateOneWithoutUpdaterNestedInput } from "../inputs/UserUpdateOneWithoutUpdaterNestedInput";
 
 @TypeGraphQL.InputType("UserUpdateWithoutPostCreatedInput", {})
 export class UserUpdateWithoutPostCreatedInput {
@@ -51,8 +55,33 @@ export class UserUpdateWithoutPostCreatedInput {
   })
   updatedAt?: DateTimeFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => PostUpdateManyWithoutUpdated_byNestedInput, {
+  @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  PostUpdated?: PostUpdateManyWithoutUpdated_byNestedInput | undefined;
+  archived?: BoolFieldUpdateOperationsInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserUpdateOneWithoutCreatorNestedInput, {
+    nullable: true
+  })
+  createdBy?: UserUpdateOneWithoutCreatorNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserUpdateOneWithoutUpdaterNestedInput, {
+    nullable: true
+  })
+  updatedBy?: UserUpdateOneWithoutUpdaterNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => PostUpdateManyWithoutUpdatedByNestedInput, {
+    nullable: true
+  })
+  postUpdated?: PostUpdateManyWithoutUpdatedByNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserUpdateOneWithoutCreatedByNestedInput, {
+    nullable: true
+  })
+  creator?: UserUpdateOneWithoutCreatedByNestedInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserUpdateOneWithoutUpdatedByNestedInput, {
+    nullable: true
+  })
+  updater?: UserUpdateOneWithoutUpdatedByNestedInput | undefined;
 }

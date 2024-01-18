@@ -1,3 +1,4 @@
+import { prismaEnhancer } from './../prisma/extensions/index';
 import { Module, Provider } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { crudResolvers } from '../generated';
@@ -6,17 +7,12 @@ import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/dis
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import applyResolver from './enhanced.resolvers';
-import { UserResolver } from './user/user.resolver';
-import { AuthResolver } from './auth/auth.resolver';
-import { CreateOneUser } from './user/use-cases/create-one-user';
-import { signIn } from './auth/use-cases/signin';
-import { signUp } from './auth/use-cases/signup';
-import { JwtService } from '@nestjs/jwt';
 import { MailModule } from './mail/mail.module';
 import { customAuthChecker } from './middleware/Auth.middleware';
-// #import-area#
+import { useCases } from './use-cases';
+import { ConfigModule } from '@nestjs/config';
 
-const prisma = new PrismaClient({
+const originalPrisma = new PrismaClient({
   log: process.env.NODE_ENV === 'production' ? [] : ['query'],
   errorFormat: 'minimal',
 });
@@ -37,11 +33,14 @@ class NewDriver extends ApolloDriver {
     TypeGraphQLModule.forRoot({
       driver: NewDriver,
       emitSchemaFile: 'schema.gql',
-      context: ({ req }) => ({ ...req, prisma }),
+      context: async ({ req }) => {
+        const prisma = prismaEnhancer(originalPrisma, req);
+        return { ...req, prisma };
+      },
       authChecker: customAuthChecker,
     }),
     MailModule,
   ],
-  providers: [CreateOneUser, UserResolver, AuthResolver, signIn, signUp, JwtService, ...crudResolvers] as unknown as Provider<any>[],
+  providers: [...useCases, ...crudResolvers] as unknown as Provider<any>[],
 })
 export class AppModule {}
