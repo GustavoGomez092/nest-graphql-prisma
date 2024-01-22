@@ -11,19 +11,10 @@ export const mineMiddleware = async ({ root, args, context, info }, next: NextFn
     const JWT = new JwtService({ secret: jwtConstants.secret });
     const user = await JWT.verifyAsync(extractTokenFromHeader(context.req.headers));
 
-    let result = await next();
-  
-    if(Array.isArray(result)) {
-      const filtered = result.filter((x) => {
-        return x.createdById === user.user
-      });
+    // inject the user id into the createdById where clause
+    args.where = {...args.where, ...{ "createdById": {"equals": user.user }}}
 
-      result = filtered;
-    } else if (result.createdById !== user.user) {
-      result = null;
-    }
-
-    return result;
+    return next();
 
   } catch (error) {
     console.log(error);

@@ -113,7 +113,7 @@ The extractTokenFromHeader function splits the authorization header into type an
 This function ensures that only authenticated users with the correct roles can access certain parts of the application, providing an additional layer of security.
 
 ### Mine Middleware
-The mineMiddleware is a custom middleware function used in our application to filter data based on the user who created it. It is written in TypeScript and uses the PrismaClient from Prisma, JwtService from NestJS, and MiddlewareFn and NextFn from TypeGraphQL.
+The mineMiddleware is a custom middleware function used in our application to filter data based on the user who created it. 
 
 Here's a breakdown of what it does:
 
@@ -121,8 +121,10 @@ Initialization: The middleware function receives an object containing root, args
 
 User Verification: It verifies the JWT token extracted from the request headers to authenticate the user.
 
-Data Filtering: The middleware then calls the next function, which invokes the next middleware or resolver in the chain and returns the result. If the result is an array, it filters the array to only include items created by the authenticated user. If the result is a single object, it checks if the object was created by the authenticated user. If not, it sets the result to null.
+Data Filtering: The middleware then injects the user id into the createdById where clause of the arguments passed to the resolver. This ensures that the resolver only returns data created by the authenticated user.
 
-Error Handling: If any error occurs during the process, it is caught and can be handled appropriately.
+Error Handling: If any error occurs during the process, it is caught and logged to the console, and the middleware passes control to the next middleware or resolver in the chain.
+
+The extractTokenFromHeader function is used to extract the JWT token from the authorization header of the request. If the authorization header is not present or does not contain a Bearer token, it returns undefined.
 
 This middleware ensures that users can only access data they have created, providing an additional layer of security and data integrity.

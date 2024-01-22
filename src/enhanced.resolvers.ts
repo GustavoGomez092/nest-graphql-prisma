@@ -12,7 +12,7 @@ const resolversEnhanceMap: ResolversEnhanceMap = {
   },
   Post: {
     _all: [Authorized(), UseMiddleware(mineMiddleware)],
-    _mutation: [Authorized()],
+    _mutation: [Authorized(), UseMiddleware(mineMiddleware)],
   },
 };
 
