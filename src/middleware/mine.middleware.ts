@@ -19,6 +19,8 @@ export const mineMiddleware = async ({ root, args, context, info }, next: NextFn
       });
 
       result = filtered;
+    } else if (result.createdById !== user.user) {
+      result = null;
     }
 
     return result;
