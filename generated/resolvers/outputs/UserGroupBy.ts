@@ -62,7 +62,7 @@ export class UserGroupBy {
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: false
   })
-  archived!: boolean;
+  deleted!: boolean;
 
   @TypeGraphQL.Field(_type => UserCountAggregate, {
     nullable: true

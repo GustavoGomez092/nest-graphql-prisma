@@ -27,7 +27,7 @@ export class signIn {
         throw new UnauthorizedException('Invalid credentials');
       }
 
-      const payload = { user: user.id, email: user.email, name: user.name };
+      const payload = { user: user.id, email: user.email, name: user.name, role: user.role };
 
       const JWT = new JwtService({ secret: process.env.JWT_SECRET });
 

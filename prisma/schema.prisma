@@ -54,7 +54,7 @@ model User {
   /// @TypeGraphQL.omit(output: true, input: true)
   postUpdated Post[]   @relation("upadtedByrelation")
   /// @TypeGraphQL.omit(output: true, input: true)
-  archived    Boolean  @default(false)
+  deleted     Boolean  @default(false)
   /// @TypeGraphQL.omit(output: true, input: true)
   creator     User?    @relation("createdByUserRelation")
   /// @TypeGraphQL.omit(output: true, input: true)
@@ -62,20 +62,21 @@ model User {
 }
 
 model Post {
+  /// @TypeGraphQL.omit(output: true)
   id          String   @id @default(cuid())
   title       String
   content     String?
   published   Boolean  @default(false)
   /// @TypeGraphQL.omit(output: true, input: true)
-  createdBy   User     @relation("createdByrelation", fields: [createdById], references: [id])
+  createdBy   User?    @relation("createdByrelation", fields: [createdById], references: [id])
   createdById String
   /// @TypeGraphQL.omit(output: true, input: true)
-  updatedBy   User     @relation("upadtedByrelation", fields: [updatedById], references: [id])
+  updatedBy   User?    @relation("upadtedByrelation", fields: [updatedById], references: [id])
   updatedById String
   /// @TypeGraphQL.omit(output: true, input: true)
   createdAt   DateTime @default(now())
   /// @TypeGraphQL.omit(output: true, input: true)
   updatedAt   DateTime @updatedAt
   /// @TypeGraphQL.omit(output: true, input: true)
-  archived    Boolean  @default(false)
+  deleted     Boolean  @default(false)
 }

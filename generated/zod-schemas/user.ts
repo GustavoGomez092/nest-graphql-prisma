@@ -26,7 +26,7 @@ export const UserModel = z.object({
   /**
    * @TypeGraphQL.omit(output: true, input: true)
    */
-  archived: z.boolean(),
+  deleted: z.boolean(),
 })
 
 export interface CompleteUser extends z.infer<typeof UserModel> {

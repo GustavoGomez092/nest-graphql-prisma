@@ -61,7 +61,7 @@ export class User {
 
   postUpdated?: Post[];
 
-  archived?: boolean;
+  deleted?: boolean;
 
   creator?: User | null;
 

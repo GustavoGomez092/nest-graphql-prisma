@@ -20,12 +20,12 @@ export const PostModel = z.object({
   /**
    * @TypeGraphQL.omit(output: true, input: true)
    */
-  archived: z.boolean(),
+  deleted: z.boolean(),
 })
 
 export interface CompletePost extends z.infer<typeof PostModel> {
-  createdBy: CompleteUser
-  updatedBy: CompleteUser
+  createdBy?: CompleteUser | null
+  updatedBy?: CompleteUser | null
 }
 
 /**
@@ -37,9 +37,9 @@ export const RelatedPostModel: z.ZodSchema<CompletePost> = z.lazy(() => PostMode
   /**
    * @TypeGraphQL.omit(output: true, input: true)
    */
-  createdBy: RelatedUserModel,
+  createdBy: RelatedUserModel.nullish(),
   /**
    * @TypeGraphQL.omit(output: true, input: true)
    */
-  updatedBy: RelatedUserModel,
+  updatedBy: RelatedUserModel.nullish(),
 }))

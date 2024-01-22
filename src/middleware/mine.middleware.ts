@@ -4,19 +4,31 @@ import { getPrismaFromContext } from 'generated/helpers';
 import { jwtConstants } from 'src/auth/constants';
 import { MiddlewareFn, NextFn } from 'type-graphql';
 
-export const testMiddleware = async ({ root, args, context, info }, next: NextFn): Promise<void> => {
+export const mineMiddleware = async ({ root, args, context, info }, next: NextFn): Promise<void> => {
   const prisma: PrismaClient = getPrismaFromContext(context);
 
   try {
     const JWT = new JwtService({ secret: jwtConstants.secret });
     const user = await JWT.verifyAsync(extractTokenFromHeader(context.req.headers));
-    const { user: id } = user;
+
+    let result = await next();
+  
+    if(Array.isArray(result)) {
+      const filtered = result.filter((x) => {
+        return x.createdById === user.user
+      });
+
+      result = filtered;
+    }
+
+    return result;
+
   } catch (error) {
     console.log(error);
     return next();
   }
 
-  return next();
+
 };
 
 const extractTokenFromHeader = (request): string => {

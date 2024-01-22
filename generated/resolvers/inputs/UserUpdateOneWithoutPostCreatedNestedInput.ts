@@ -6,10 +6,11 @@ import { UserCreateOrConnectWithoutPostCreatedInput } from "../inputs/UserCreate
 import { UserCreateWithoutPostCreatedInput } from "../inputs/UserCreateWithoutPostCreatedInput";
 import { UserUpdateToOneWithWhereWithoutPostCreatedInput } from "../inputs/UserUpdateToOneWithWhereWithoutPostCreatedInput";
 import { UserUpsertWithoutPostCreatedInput } from "../inputs/UserUpsertWithoutPostCreatedInput";
+import { UserWhereInput } from "../inputs/UserWhereInput";
 import { UserWhereUniqueInput } from "../inputs/UserWhereUniqueInput";
 
-@TypeGraphQL.InputType("UserUpdateOneRequiredWithoutPostCreatedNestedInput", {})
-export class UserUpdateOneRequiredWithoutPostCreatedNestedInput {
+@TypeGraphQL.InputType("UserUpdateOneWithoutPostCreatedNestedInput", {})
+export class UserUpdateOneWithoutPostCreatedNestedInput {
   @TypeGraphQL.Field(_type => UserCreateWithoutPostCreatedInput, {
     nullable: true
   })
@@ -24,6 +25,16 @@ export class UserUpdateOneRequiredWithoutPostCreatedNestedInput {
     nullable: true
   })
   upsert?: UserUpsertWithoutPostCreatedInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserWhereInput, {
+    nullable: true
+  })
+  disconnect?: UserWhereInput | undefined;
+
+  @TypeGraphQL.Field(_type => UserWhereInput, {
+    nullable: true
+  })
+  delete?: UserWhereInput | undefined;
 
   @TypeGraphQL.Field(_type => UserWhereUniqueInput, {
     nullable: true

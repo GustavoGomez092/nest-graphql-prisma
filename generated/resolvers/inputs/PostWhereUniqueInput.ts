@@ -7,7 +7,7 @@ import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { PostWhereInput } from "../inputs/PostWhereInput";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
-import { UserRelationFilter } from "../inputs/UserRelationFilter";
+import { UserNullableRelationFilter } from "../inputs/UserNullableRelationFilter";
 
 @TypeGraphQL.InputType("PostWhereUniqueInput", {})
 export class PostWhereUniqueInput {

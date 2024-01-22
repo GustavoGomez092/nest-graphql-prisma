@@ -58,7 +58,7 @@ export class UserUpdateWithoutCreatedByInput {
   @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  archived?: BoolFieldUpdateOperationsInput | undefined;
+  deleted?: BoolFieldUpdateOperationsInput | undefined;
 
   @TypeGraphQL.Field(_type => UserUpdateOneWithoutUpdaterNestedInput, {
     nullable: true

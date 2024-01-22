@@ -11,7 +11,7 @@ export enum UserScalarFieldEnum {
   updatedAt = "updatedAt",
   createdById = "createdById",
   updatedById = "updatedById",
-  archived = "archived"
+  deleted = "deleted"
 }
 TypeGraphQL.registerEnumType(UserScalarFieldEnum, {
   name: "UserScalarFieldEnum",

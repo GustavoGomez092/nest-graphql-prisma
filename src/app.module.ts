@@ -10,7 +10,7 @@ import applyResolver from './enhanced.resolvers';
 import { MailModule } from './mail/mail.module';
 import { customAuthChecker } from './middleware/Auth.middleware';
 import { useCases } from './use-cases';
-import { ConfigModule } from '@nestjs/config';
+import { getModels } from './utils/getModels';
 
 const originalPrisma = new PrismaClient({
   log: process.env.NODE_ENV === 'production' ? [] : ['query'],
@@ -34,7 +34,7 @@ class NewDriver extends ApolloDriver {
       driver: NewDriver,
       emitSchemaFile: 'schema.gql',
       context: async ({ req }) => {
-        const prisma = prismaEnhancer(originalPrisma, req);
+        const prisma = prismaEnhancer(originalPrisma, req, await getModels());
         return { ...req, prisma };
       },
       authChecker: customAuthChecker,

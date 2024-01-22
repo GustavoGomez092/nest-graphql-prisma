@@ -6,7 +6,7 @@ import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
-import { UserRelationFilter } from "../inputs/UserRelationFilter";
+import { UserNullableRelationFilter } from "../inputs/UserNullableRelationFilter";
 
 @TypeGraphQL.InputType("PostWhereInput", {})
 export class PostWhereInput {

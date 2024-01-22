@@ -26,14 +26,14 @@ export class Post {
   })
   published!: boolean;
 
-  createdBy?: User;
+  createdBy?: User | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
   })
   createdById!: string;
 
-  updatedBy?: User;
+  updatedBy?: User | null;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: false
@@ -44,5 +44,5 @@ export class Post {
 
   updatedAt?: Date;
 
-  archived?: boolean;
+  deleted?: boolean;
 }

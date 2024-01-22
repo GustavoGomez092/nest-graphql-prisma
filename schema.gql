@@ -219,10 +219,10 @@ type Post {
 
 type PostCountAggregate {
   _all: Int!
-  archived: Int!
   content: Int!
   createdAt: Int!
   createdById: Int!
+  deleted: Int!
   id: Int!
   published: Int!
   title: Int!
@@ -259,10 +259,10 @@ type PostGroupBy {
   _count: PostCountAggregate
   _max: PostMaxAggregate
   _min: PostMinAggregate
-  archived: Boolean!
   content: String
   createdAt: DateTimeISO!
   createdById: String!
+  deleted: Boolean!
   id: String!
   published: Boolean!
   title: String!
@@ -271,10 +271,10 @@ type PostGroupBy {
 }
 
 type PostMaxAggregate {
-  archived: Boolean
   content: String
   createdAt: DateTimeISO
   createdById: String
+  deleted: Boolean
   id: String
   published: Boolean
   title: String
@@ -292,10 +292,10 @@ input PostMaxOrderByAggregateInput {
 }
 
 type PostMinAggregate {
-  archived: Boolean
   content: String
   createdAt: DateTimeISO
   createdById: String
+  deleted: Boolean
   id: String
   published: Boolean
   title: String
@@ -334,10 +334,10 @@ input PostOrderByWithRelationInput {
 }
 
 enum PostScalarFieldEnum {
-  archived
   content
   createdAt
   createdById
+  deleted
   id
   published
   title
@@ -522,9 +522,9 @@ type UserCount {
 
 type UserCountAggregate {
   _all: Int!
-  archived: Int!
   createdAt: Int!
   createdById: Int!
+  deleted: Int!
   email: Int!
   id: Int!
   name: Int!
@@ -570,9 +570,9 @@ type UserGroupBy {
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
-  archived: Boolean!
   createdAt: DateTimeISO!
   createdById: String
+  deleted: Boolean!
   email: String!
   id: String!
   name: String
@@ -584,9 +584,9 @@ type UserGroupBy {
 }
 
 type UserMaxAggregate {
-  archived: Boolean
   createdAt: DateTimeISO
   createdById: String
+  deleted: Boolean
   email: String
   id: String
   name: String
@@ -609,9 +609,9 @@ input UserMaxOrderByAggregateInput {
 }
 
 type UserMinAggregate {
-  archived: Boolean
   createdAt: DateTimeISO
   createdById: String
+  deleted: Boolean
   email: String
   id: String
   name: String
@@ -659,9 +659,9 @@ input UserOrderByWithRelationInput {
 }
 
 enum UserScalarFieldEnum {
-  archived
   createdAt
   createdById
+  deleted
   email
   id
   name

@@ -6,7 +6,7 @@ import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperati
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { UserUpdateOneRequiredWithoutPostUpdatedNestedInput } from "../inputs/UserUpdateOneRequiredWithoutPostUpdatedNestedInput";
+import { UserUpdateOneWithoutPostUpdatedNestedInput } from "../inputs/UserUpdateOneWithoutPostUpdatedNestedInput";
 
 @TypeGraphQL.InputType("PostUpdateWithoutCreatedByInput", {})
 export class PostUpdateWithoutCreatedByInput {
@@ -43,10 +43,10 @@ export class PostUpdateWithoutCreatedByInput {
   @TypeGraphQL.Field(_type => BoolFieldUpdateOperationsInput, {
     nullable: true
   })
-  archived?: BoolFieldUpdateOperationsInput | undefined;
+  deleted?: BoolFieldUpdateOperationsInput | undefined;
 
-  @TypeGraphQL.Field(_type => UserUpdateOneRequiredWithoutPostUpdatedNestedInput, {
+  @TypeGraphQL.Field(_type => UserUpdateOneWithoutPostUpdatedNestedInput, {
     nullable: true
   })
-  updatedBy?: UserUpdateOneRequiredWithoutPostUpdatedNestedInput | undefined;
+  updatedBy?: UserUpdateOneWithoutPostUpdatedNestedInput | undefined;
 }

@@ -59,5 +59,5 @@ export class UserMinAggregate {
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: true
   })
-  archived!: boolean | null;
+  deleted!: boolean | null;
 }

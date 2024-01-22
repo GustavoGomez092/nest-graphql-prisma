@@ -6,8 +6,8 @@ import { BoolFieldUpdateOperationsInput } from "../inputs/BoolFieldUpdateOperati
 import { DateTimeFieldUpdateOperationsInput } from "../inputs/DateTimeFieldUpdateOperationsInput";
 import { NullableStringFieldUpdateOperationsInput } from "../inputs/NullableStringFieldUpdateOperationsInput";
 import { StringFieldUpdateOperationsInput } from "../inputs/StringFieldUpdateOperationsInput";
-import { UserUpdateOneRequiredWithoutPostCreatedNestedInput } from "../inputs/UserUpdateOneRequiredWithoutPostCreatedNestedInput";
-import { UserUpdateOneRequiredWithoutPostUpdatedNestedInput } from "../inputs/UserUpdateOneRequiredWithoutPostUpdatedNestedInput";
+import { UserUpdateOneWithoutPostCreatedNestedInput } from "../inputs/UserUpdateOneWithoutPostCreatedNestedInput";
+import { UserUpdateOneWithoutPostUpdatedNestedInput } from "../inputs/UserUpdateOneWithoutPostUpdatedNestedInput";
 
 @TypeGraphQL.InputType("PostUpdateInput", {})
 export class PostUpdateInput {
