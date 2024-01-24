@@ -39,7 +39,7 @@ class NewDriver extends ApolloDriver {
       useFactory: async (authService:AuthService) => ({
         emitSchemaFile: 'schema.gql',
         context: async ({ req, res }) => {
-          const prisma = prismaEnhancer(originalPrisma, req, await getModels());
+          const prisma = prismaEnhancer(originalPrisma, req, await getModels(), authService);
           return { req, res, prisma, authService};
         },
         authChecker,

@@ -1,18 +1,29 @@
 import { Request } from 'express';
-import { jwtExtractor } from './utils/jwtExtractor';
+import { getTokens } from './utils/extractToken';
+import { AuthService } from 'src/auth/auth.service';
 
-export const createManyEnhancer = async (req: Request, { model, operation, args, query }) => {
-  const user = await jwtExtractor(req);
+export const createManyEnhancer = async (req: Request, { model, operation, args, query }, authService:AuthService) => {
 
-  if (Array.isArray(args.data)) {
-    args.data.forEach((item) => {
-      item.createdById = user.user;
-      item.updatedById = user.user;
-    });
-  } else {
-    args.data.createdById = user.user;
-    args.data.updatedById = user.user;
+
+  try {
+    const token = getTokens(req)
+    const user = await authService.getTokenInfo({ token: token.jwt });
+
+    if (Array.isArray(args.data)) {
+      args.data.forEach((item) => {
+        item.createdById = user.userId;
+        item.updatedById = user.userId;
+      });
+    } else {
+      args.data.createdById = user.userId;
+      args.data.updatedById = user.userId;
+    }
+
+  } catch (error) {
+    throw new Error(error);
   }
+
+
 
   return query(args);
 };

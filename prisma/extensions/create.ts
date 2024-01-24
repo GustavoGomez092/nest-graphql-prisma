@@ -1,9 +1,11 @@
 import { Request } from 'express';
-import { jwtExtractor } from './utils/jwtExtractor';
+import { getTokens } from './utils/extractToken';
 import * as argon2 from 'argon2';
 import { z } from 'zod';
+import { AuthService } from 'src/auth/auth.service';
 
-export const createEnhancer = async (req: Request, { model, operation, args, query }) => {
+export const createEnhancer = async (req: Request, { model, operation, args, query}, authService:AuthService) => {
+
 
   if (req.body?.operationName === 'SignUp') {
     return query(args);
@@ -20,9 +22,16 @@ export const createEnhancer = async (req: Request, { model, operation, args, que
       }
     }
 
-    const user = await jwtExtractor(req);
-    args.data.createdBy = { connect: { id: user.user } };
-    args.data.updatedBy = { connect: { id: user.user } };
+    try {
+      const token = getTokens(req)
+      const user = await authService.getTokenInfo({ token: token.jwt });
+
+      args.data.createdBy = { connect: { id: user.userId } };
+      args.data.updatedBy = { connect: { id: user.userId } };
+    } catch (error) {
+      throw new Error(error);
+    }
+
     return query(args);
   }
 };

@@ -1,12 +1,20 @@
 import { Request } from 'express';
-import { jwtExtractor } from './utils/jwtExtractor';
+import { getTokens } from './utils/extractToken';
 import z from 'zod';
 import * as argon2 from 'argon2';
+import { AuthService } from 'src/auth/auth.service';
 
-export const upsertEnhancer = async (req: Request, { model, operation, args, query }) => {
-  const user = await jwtExtractor(req);
+export const upsertEnhancer = async (req: Request, { model, operation, args, query }, authService:AuthService) => {
+  const token = getTokens(req)
+  try {
+    const user = await authService.getTokenInfo({ token: token.jwt });
 
-  console.log(args);
+    args.create.updatedBy = { connect: { id: user.userId } };
+    args.create.createdBy = { connect: { id: user.userId } };
+    args.update.updatedById = user.userId;
+  } catch (error) {
+    throw new Error(error);
+  }
 
   if (!args.create.password.includes('$argon2')) {
     try {
@@ -18,11 +26,6 @@ export const upsertEnhancer = async (req: Request, { model, operation, args, que
     }
   }
 
-  args.create.updatedBy = { connect: { id: user.user } };
-  args.create.createdBy = { connect: { id: user.user } };
-  args.update.updatedById = user.user;
-
-  console.log(args);
 
   return query(args);
 };
