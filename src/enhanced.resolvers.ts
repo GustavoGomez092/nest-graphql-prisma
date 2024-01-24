@@ -11,8 +11,9 @@ const resolversEnhanceMap: ResolversEnhanceMap = {
     createManyUser: [Authorized(Role.ADMIN)],    
   },
   Post: {
-    _all: [Authorized(), UseMiddleware(mineMiddleware)],
-    _mutation: [Authorized(), UseMiddleware(mineMiddleware)],
+    _all: [Authorized()],
+    _query: [UseMiddleware(mineMiddleware)],
+    _mutation: [UseMiddleware(mineMiddleware)],
   },
 };
 

@@ -46,17 +46,22 @@ Just follow the prompts of the generator.
 
 ## .env file
 
-| key            |                                   value                                    |
-| -------------- | :------------------------------------------------------------------------: |
-| DATABASE_URL   |       `postgresql://postgres:password@db.provider.co:5432/postgres`        |
-| JWT_SECRET     | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
-| JWT_EXPIRES_IN |                                     1h                                     |
-| NODE_ENV       |                                development                                 |
-| SMTP_SERVER    |                             smtp.provider.com                              |
-| SMTP_PORT      |                                    587                                     |
-| SMTP_USER      |                                  smtpuser                                  |
-| SMTP_PASSWORD  |                                smtppassword                                |
-| MAIL_FROM      |                              noreply@test.com                              |
+| key                 |                                   value                                    |
+| ------------------- | :------------------------------------------------------------------------: |
+| DATABASE_URL        |       `postgresql://postgres:password@db.provider.co:5432/postgres`        |
+| COOKIE_SECRET       | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
+| JWT_SECRET          | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
+| REFRESH_JWT_SECRET  | `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"` |
+| JWT_EXP             |                                     5m                                     |
+| REFRESH_JWT_EXP     |                                     30m                                    |
+| MOBILE_JWT_SECRET   |                                     90d                                    |
+| NODE_ENV            |                                development                                 |
+| SMTP_SERVER         |                             smtp.provider.com                              |
+| SMTP_PORT           |                                    587                                     |
+| SMTP_USER           |                                  smtpuser                                  |
+| SMTP_PASSWORD       |                                smtppassword                                |
+| MAIL_FROM           |                              noreply@test.com                              |
+
 
 ## Considerations
 

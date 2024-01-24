@@ -14,9 +14,17 @@ type AggregatePost {
 }
 
 type AggregateUser {
+  _avg: UserAvgAggregate
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
+  _sum: UserSumAggregate
+}
+
+"""Authentication types used to grant access to users"""
+enum AuthTypes {
+  """Default value for Auth types"""
+  EMAIL_AND_PASSWORD
 }
 
 input BoolFieldUpdateOperationsInput {
@@ -62,8 +70,39 @@ input EnumRoleWithAggregatesFilter {
   notIn: [Role!]
 }
 
-type JWTTokenInput {
-  access_token: String!
+input IntFieldUpdateOperationsInput {
+  decrement: Int
+  divide: Int
+  increment: Int
+  multiply: Int
+  set: Int
+}
+
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntFilter
+  notIn: [Int!]
+}
+
+input IntWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedIntFilter
+  _min: NestedIntFilter
+  _sum: NestedIntFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntWithAggregatesFilter
+  notIn: [Int!]
 }
 
 type Mutation {
@@ -75,7 +114,6 @@ type Mutation {
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
   deleteOnePost(where: PostWhereUniqueInput!): Post
   deleteOneUser(where: UserWhereUniqueInput!): User
-  signIn(email: String!, password: String!): JWTTokenInput!
   signUp(confirmPassword: String!, email: String!, name: String!, password: String!): User!
   updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
@@ -115,6 +153,17 @@ input NestedEnumRoleWithAggregatesFilter {
   notIn: [Role!]
 }
 
+input NestedFloatFilter {
+  equals: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  lt: Float
+  lte: Float
+  not: NestedFloatFilter
+  notIn: [Float!]
+}
+
 input NestedIntFilter {
   equals: Int
   gt: Int
@@ -134,6 +183,22 @@ input NestedIntNullableFilter {
   lt: Int
   lte: Int
   not: NestedIntNullableFilter
+  notIn: [Int!]
+}
+
+input NestedIntWithAggregatesFilter {
+  _avg: NestedFloatFilter
+  _count: NestedIntFilter
+  _max: NestedIntFilter
+  _min: NestedIntFilter
+  _sum: NestedIntFilter
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: NestedIntWithAggregatesFilter
   notIn: [Int!]
 }
 
@@ -406,6 +471,11 @@ type Query {
   getUser(where: UserWhereUniqueInput!): User
   groupByPost(by: [PostScalarFieldEnum!]!, having: PostScalarWhereWithAggregatesInput, orderBy: [PostOrderByWithAggregationInput!], skip: Int, take: Int, where: PostWhereInput): [PostGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
+
+  """
+  Query used to login the user, the backend will determine if the request is mobile or desktop
+  """
+  login(authType: AuthTypes! = EMAIL_AND_PASSWORD, email: String!, password: String!, token: String!): String!
   post(where: PostWhereUniqueInput!): Post
   posts(cursor: PostWhereUniqueInput, distinct: [PostScalarFieldEnum!], orderBy: [PostOrderByWithRelationInput!], skip: Int, take: Int, where: PostWhereInput): [Post!]!
   user(where: UserWhereUniqueInput!): User
@@ -508,11 +578,22 @@ type User {
 
   """@zod.email({ message: "please enter a valid email" })"""
   email: String!
+  emailVerified: Boolean!
   id: String!
   name: String
   role: Role!
   updatedById: String
-  verified: Boolean!
+}
+
+type UserAvgAggregate {
+  lastSigned: Float
+  lastSignedMobile: Float
+  passwordRecoveryVersion: Float
+  tokenVersion: Float
+}
+
+input UserAvgOrderByAggregateInput {
+  lastSigned: SortOrder
 }
 
 type UserCount {
@@ -526,61 +607,76 @@ type UserCountAggregate {
   createdById: Int!
   deleted: Int!
   email: Int!
+  emailVerified: Int!
   id: Int!
+  lastSigned: Int!
+  lastSignedMobile: Int!
   name: Int!
   password: Int!
+  passwordRecoveryVersion: Int!
   role: Int!
+  signupType: Int!
+  tokenVersion: Int!
   updatedAt: Int!
   updatedById: Int!
-  verified: Int!
 }
 
 input UserCountOrderByAggregateInput {
   createdById: SortOrder
   email: SortOrder
+  emailVerified: SortOrder
   id: SortOrder
+  lastSigned: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
   updatedById: SortOrder
-  verified: SortOrder
 }
 
 input UserCreateInput {
   email: String!
+  emailVerified: Boolean
   id: String
+  lastSigned: Int
   name: String
   password: String!
   role: Role
-  verified: Boolean
 }
 
 input UserCreateManyInput {
   createdById: String
   email: String!
+  emailVerified: Boolean
   id: String
+  lastSigned: Int
   name: String
   password: String!
   role: Role
   updatedById: String
-  verified: Boolean
 }
 
 type UserGroupBy {
+  _avg: UserAvgAggregate
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
+  _sum: UserSumAggregate
   createdAt: DateTimeISO!
   createdById: String
   deleted: Boolean!
   email: String!
+  emailVerified: Boolean!
   id: String!
+  lastSigned: Int!
+  lastSignedMobile: Int!
   name: String
   password: String!
+  passwordRecoveryVersion: Int!
   role: Role!
+  signupType: String!
+  tokenVersion: Int!
   updatedAt: DateTimeISO!
   updatedById: String
-  verified: Boolean!
 }
 
 type UserMaxAggregate {
@@ -588,24 +684,30 @@ type UserMaxAggregate {
   createdById: String
   deleted: Boolean
   email: String
+  emailVerified: Boolean
   id: String
+  lastSigned: Int
+  lastSignedMobile: Int
   name: String
   password: String
+  passwordRecoveryVersion: Int
   role: Role
+  signupType: String
+  tokenVersion: Int
   updatedAt: DateTimeISO
   updatedById: String
-  verified: Boolean
 }
 
 input UserMaxOrderByAggregateInput {
   createdById: SortOrder
   email: SortOrder
+  emailVerified: SortOrder
   id: SortOrder
+  lastSigned: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
   updatedById: SortOrder
-  verified: SortOrder
 }
 
 type UserMinAggregate {
@@ -613,49 +715,59 @@ type UserMinAggregate {
   createdById: String
   deleted: Boolean
   email: String
+  emailVerified: Boolean
   id: String
+  lastSigned: Int
+  lastSignedMobile: Int
   name: String
   password: String
+  passwordRecoveryVersion: Int
   role: Role
+  signupType: String
+  tokenVersion: Int
   updatedAt: DateTimeISO
   updatedById: String
-  verified: Boolean
 }
 
 input UserMinOrderByAggregateInput {
   createdById: SortOrder
   email: SortOrder
+  emailVerified: SortOrder
   id: SortOrder
+  lastSigned: SortOrder
   name: SortOrder
   password: SortOrder
   role: SortOrder
   updatedById: SortOrder
-  verified: SortOrder
 }
 
 input UserOrderByWithAggregationInput {
+  _avg: UserAvgOrderByAggregateInput
   _count: UserCountOrderByAggregateInput
   _max: UserMaxOrderByAggregateInput
   _min: UserMinOrderByAggregateInput
+  _sum: UserSumOrderByAggregateInput
   createdById: SortOrderInput
   email: SortOrder
+  emailVerified: SortOrder
   id: SortOrder
+  lastSigned: SortOrder
   name: SortOrderInput
   password: SortOrder
   role: SortOrder
   updatedById: SortOrderInput
-  verified: SortOrder
 }
 
 input UserOrderByWithRelationInput {
   createdById: SortOrderInput
   email: SortOrder
+  emailVerified: SortOrder
   id: SortOrder
+  lastSigned: SortOrder
   name: SortOrderInput
   password: SortOrder
   role: SortOrder
   updatedById: SortOrderInput
-  verified: SortOrder
 }
 
 enum UserScalarFieldEnum {
@@ -663,13 +775,18 @@ enum UserScalarFieldEnum {
   createdById
   deleted
   email
+  emailVerified
   id
+  lastSigned
+  lastSignedMobile
   name
   password
+  passwordRecoveryVersion
   role
+  signupType
+  tokenVersion
   updatedAt
   updatedById
-  verified
 }
 
 input UserScalarWhereWithAggregatesInput {
@@ -678,30 +795,44 @@ input UserScalarWhereWithAggregatesInput {
   OR: [UserScalarWhereWithAggregatesInput!]
   createdById: StringNullableWithAggregatesFilter
   email: StringWithAggregatesFilter
+  emailVerified: BoolWithAggregatesFilter
   id: StringWithAggregatesFilter
+  lastSigned: IntWithAggregatesFilter
   name: StringNullableWithAggregatesFilter
   password: StringWithAggregatesFilter
   role: EnumRoleWithAggregatesFilter
   updatedById: StringNullableWithAggregatesFilter
-  verified: BoolWithAggregatesFilter
+}
+
+type UserSumAggregate {
+  lastSigned: Int
+  lastSignedMobile: Int
+  passwordRecoveryVersion: Int
+  tokenVersion: Int
+}
+
+input UserSumOrderByAggregateInput {
+  lastSigned: SortOrder
 }
 
 input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
+  emailVerified: BoolFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  lastSigned: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  verified: BoolFieldUpdateOperationsInput
 }
 
 input UserUpdateManyMutationInput {
   email: StringFieldUpdateOperationsInput
+  emailVerified: BoolFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
+  lastSigned: IntFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
   password: StringFieldUpdateOperationsInput
   role: EnumRoleFieldUpdateOperationsInput
-  verified: BoolFieldUpdateOperationsInput
 }
 
 input UserWhereInput {
@@ -710,12 +841,13 @@ input UserWhereInput {
   OR: [UserWhereInput!]
   createdById: StringNullableFilter
   email: StringFilter
+  emailVerified: BoolFilter
   id: StringFilter
+  lastSigned: IntFilter
   name: StringNullableFilter
   password: StringFilter
   role: EnumRoleFilter
   updatedById: StringNullableFilter
-  verified: BoolFilter
 }
 
 input UserWhereUniqueInput {
@@ -724,10 +856,11 @@ input UserWhereUniqueInput {
   OR: [UserWhereInput!]
   createdById: String
   email: String
+  emailVerified: BoolFilter
   id: String
+  lastSigned: IntFilter
   name: StringNullableFilter
   password: StringFilter
   role: EnumRoleFilter
   updatedById: String
-  verified: BoolFilter
 }

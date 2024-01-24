@@ -5,6 +5,7 @@ import { DecimalJSScalar } from "../../scalars";
 import { BoolFilter } from "../inputs/BoolFilter";
 import { DateTimeFilter } from "../inputs/DateTimeFilter";
 import { EnumRoleFilter } from "../inputs/EnumRoleFilter";
+import { IntFilter } from "../inputs/IntFilter";
 import { PostListRelationFilter } from "../inputs/PostListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
 import { StringNullableFilter } from "../inputs/StringNullableFilter";
@@ -66,5 +67,10 @@ export class UserWhereUniqueInput {
   @TypeGraphQL.Field(_type => BoolFilter, {
     nullable: true
   })
-  verified?: BoolFilter | undefined;
+  emailVerified?: BoolFilter | undefined;
+
+  @TypeGraphQL.Field(_type => IntFilter, {
+    nullable: true
+  })
+  lastSigned?: IntFilter | undefined;
 }

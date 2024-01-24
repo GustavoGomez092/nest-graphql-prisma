@@ -34,7 +34,12 @@ export class UserCreateManyInput {
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: true
   })
-  verified?: boolean | undefined;
+  emailVerified?: boolean | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  lastSigned?: number | undefined;
 
   @TypeGraphQL.Field(_type => String, {
     nullable: true

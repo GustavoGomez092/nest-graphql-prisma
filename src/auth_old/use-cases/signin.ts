@@ -6,7 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { GraphQLResolveInfo } from 'graphql';
 import { Ctx } from 'src/app.types';
 import * as argon2 from 'argon2';
-import { jwtConstants } from '../constants';
+import { jwtConstants } from '../../auth/constants';
 
 @Injectable()
 export class signIn {

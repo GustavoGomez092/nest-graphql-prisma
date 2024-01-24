@@ -37,7 +37,17 @@ export class User {
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: false
   })
-  verified!: boolean;
+  emailVerified!: boolean;
+
+  signupType?: string;
+
+  tokenVersion?: number;
+
+  lastSigned?: number;
+
+  lastSignedMobile?: number;
+
+  passwordRecoveryVersion?: number;
 
   createdAt?: Date;
 

@@ -31,38 +31,47 @@ enum Role {
 }
 
 model User {
-  id          String   @id @default(cuid())
+  id                      String   @id @default(cuid())
   /// @zod.email({ message: "please enter a valid email" })
-  email       String   @unique
+  email                   String   @unique
   /// @TypeGraphQL.omit(output: true)
-  password    String
-  name        String?
-  role        Role     @default(USER)
-  verified    Boolean  @default(false)
+  password                String
+  name                    String?
+  role                    Role     @default(USER)
+  emailVerified           Boolean  @default(false)
   /// @TypeGraphQL.omit(output: true, input: true)
-  createdAt   DateTime @default(now())
+  signupType              String   @default("emailAndPassword")
   /// @TypeGraphQL.omit(output: true, input: true)
-  updatedAt   DateTime @updatedAt
+  tokenVersion            Int      @default(0)
+  /// @TypeGraphQL.omit(output: true)
+  lastSigned              Int      @default(0)
   /// @TypeGraphQL.omit(output: true, input: true)
-  createdBy   User?    @relation("createdByUserRelation", fields: [createdById], references: [id])
-  createdById String?  @unique
+  lastSignedMobile        Int      @default(0)
   /// @TypeGraphQL.omit(output: true, input: true)
-  updatedBy   User?    @relation("upadtedByUserRelation", fields: [updatedById], references: [id])
-  updatedById String?  @unique
+  passwordRecoveryVersion Int      @default(0)
   /// @TypeGraphQL.omit(output: true, input: true)
-  postCreated Post[]   @relation("createdByrelation")
+  createdAt               DateTime @default(now())
   /// @TypeGraphQL.omit(output: true, input: true)
-  postUpdated Post[]   @relation("upadtedByrelation")
+  updatedAt               DateTime @updatedAt
   /// @TypeGraphQL.omit(output: true, input: true)
-  deleted     Boolean  @default(false)
+  createdBy               User?    @relation("createdByUserRelation", fields: [createdById], references: [id])
+  createdById             String?  @unique
   /// @TypeGraphQL.omit(output: true, input: true)
-  creator     User?    @relation("createdByUserRelation")
+  updatedBy               User?    @relation("upadtedByUserRelation", fields: [updatedById], references: [id])
+  updatedById             String?  @unique
   /// @TypeGraphQL.omit(output: true, input: true)
-  updater     User?    @relation("upadtedByUserRelation")
+  postCreated             Post[]   @relation("createdByrelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  postUpdated             Post[]   @relation("upadtedByrelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  deleted                 Boolean  @default(false)
+  /// @TypeGraphQL.omit(output: true, input: true)
+  creator                 User?    @relation("createdByUserRelation")
+  /// @TypeGraphQL.omit(output: true, input: true)
+  updater                 User?    @relation("upadtedByUserRelation")
 }
 
 model Post {
-  /// @TypeGraphQL.omit(output: true)
   id          String   @id @default(cuid())
   title       String
   content     String?

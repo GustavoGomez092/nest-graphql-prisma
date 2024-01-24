@@ -34,7 +34,32 @@ export class UserMaxAggregate {
   @TypeGraphQL.Field(_type => Boolean, {
     nullable: true
   })
-  verified!: boolean | null;
+  emailVerified!: boolean | null;
+
+  @TypeGraphQL.Field(_type => String, {
+    nullable: true
+  })
+  signupType!: string | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  tokenVersion!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  lastSigned!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  lastSignedMobile!: number | null;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  passwordRecoveryVersion!: number | null;
 
   @TypeGraphQL.Field(_type => Date, {
     nullable: true

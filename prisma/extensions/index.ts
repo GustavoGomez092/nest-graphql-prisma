@@ -19,21 +19,21 @@ export const prismaEnhancer = (prisma: PrismaClient, req: Request, models) => {
     {
       query: {
         $allModels: {
-          async create(data) {
-            return createEnhancer(req, data);
-          },
-          async createMany(data) {
-            return createManyEnhancer(req, data);
-          },
-          async update(data) {
-            return updateEnhancer(req, data);
-          },
-          async updateMany(data) {
-            return updateManyEnhancer(req, data);
-          },
-          async upsert(data) {
-            return upsertEnhancer(req, data);
-          },
+          // async create(data) {
+          //   return createEnhancer(req, data);
+          // },
+          // async createMany(data) {
+          //   return createManyEnhancer(req, data);
+          // },
+          // async update(data) {
+          //   return updateEnhancer(req, data);
+          // },
+          // async updateMany(data) {
+          //   return updateManyEnhancer(req, data);
+          // },
+          // async upsert(data) {
+          //   return upsertEnhancer(req, data);
+          // },
         },
       },
     }

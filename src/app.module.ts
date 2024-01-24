@@ -8,12 +8,14 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeGraphQLModule } from 'typegraphql-nestjs';
 import applyResolver from './enhanced.resolvers';
 import { MailModule } from './mail/mail.module';
-import { customAuthChecker } from './middleware/Auth.middleware';
 import { useCases } from './use-cases';
-import { getModels } from './utils/getModels';
+import { getModels } from './common/getModels';
+import { authChecker } from './auth/auth.checker';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
 
 const originalPrisma = new PrismaClient({
-  log: process.env.NODE_ENV === 'production' ? [] : ['query'],
+  // log: process.env.NODE_ENV === 'production' ? [] : ['query'],
   errorFormat: 'minimal',
 });
 
@@ -30,14 +32,18 @@ class NewDriver extends ApolloDriver {
 
 @Module({
   imports: [
-    TypeGraphQLModule.forRoot({
+    TypeGraphQLModule.forRootAsync({
       driver: NewDriver,
-      emitSchemaFile: 'schema.gql',
-      context: async ({ req }) => {
-        const prisma = prismaEnhancer(originalPrisma, req, await getModels());
-        return { ...req, prisma };
-      },
-      authChecker: customAuthChecker,
+      imports: [AuthModule],
+      inject: [AuthService],
+      useFactory: async (authService:AuthService) => ({
+        emitSchemaFile: 'schema.gql',
+        context: async ({ req, res }) => {
+          const prisma = prismaEnhancer(originalPrisma, req, await getModels());
+          return { req, res, prisma, authService};
+        },
+        authChecker,
+      }),
     }),
     MailModule,
   ],

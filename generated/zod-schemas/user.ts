@@ -12,7 +12,27 @@ export const UserModel = z.object({
   password: z.string(),
   name: z.string().nullish(),
   role: z.nativeEnum(Role),
-  verified: z.boolean(),
+  emailVerified: z.boolean(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  signupType: z.string(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  tokenVersion: z.number().int(),
+  /**
+   * @TypeGraphQL.omit(output: true)
+   */
+  lastSigned: z.number().int(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  lastSignedMobile: z.number().int(),
+  /**
+   * @TypeGraphQL.omit(output: true, input: true)
+   */
+  passwordRecoveryVersion: z.number().int(),
   /**
    * @TypeGraphQL.omit(output: true, input: true)
    */

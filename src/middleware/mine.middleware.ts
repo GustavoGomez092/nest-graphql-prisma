@@ -1,18 +1,20 @@
-import { PrismaClient } from '@prisma/client';
-import { JwtService } from '@nestjs/jwt';
-import { getPrismaFromContext } from 'generated/helpers';
-import { jwtConstants } from 'src/auth/constants';
-import { MiddlewareFn, NextFn } from 'type-graphql';
+import {  NextFn } from 'type-graphql';
+import { Ctx } from 'src/app.types';
+import { isMobile } from 'src/common/utils';
+import { Request } from 'express'
 
-export const mineMiddleware = async ({ root, args, context, info }, next: NextFn): Promise<void> => {
-  const prisma: PrismaClient = getPrismaFromContext(context);
+export const mineMiddleware = async ({ root, args, context, info }:{root, args, context:Ctx, info}, next: NextFn): Promise<void> => {
+
+  const authService = context.authService
 
   try {
-    const JWT = new JwtService({ secret: jwtConstants.secret });
-    const user = await JWT.verifyAsync(extractTokenFromHeader(context.req.headers));
+    const token = getTokens(context.req)
+
+    const user = await authService.getTokenInfo({ token: token.jwt });
+
 
     // inject the user id into the createdById where clause
-    args.where = {...args.where, ...{ "createdById": {"equals": user.user }}}
+    args.where = {...args.where, ...{ "createdById": {"equals": user.userId }}}
 
     return next();
 
@@ -24,7 +26,8 @@ export const mineMiddleware = async ({ root, args, context, info }, next: NextFn
 
 };
 
-const extractTokenFromHeader = (request): string => {
-  const [type, token] = request.authorization?.split(' ') ?? [];
-  return type === 'Bearer' ? token : undefined;
-};
+const getTokens = (req: Request): { jwt: string, refresh: string } => {
+  const credsSource = isMobile(req) ? req.headers : req.signedCookies
+  const { jwt, refresh } = credsSource
+  return { jwt, refresh }
+}
