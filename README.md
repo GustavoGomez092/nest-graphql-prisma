@@ -42,7 +42,23 @@ prisma migrate reset
 yarn use-case
 ```
 
-Just follow the prompts of the generator.
+The useCaseGenerator is a script that helps in creating new use cases for any of the mutation methods available via the API. This allows for the insertion of custom logic to any of the automatically generated Mutations.
+
+Here's a breakdown of what it does:
+
+Introduction and Confirmation: The script starts by introducing itself and asking the user if they want to continue. If the user chooses not to continue, the script exits.
+
+Model Selection: The script prompts the user to select a model to create a use case for. It does this by reading and parsing the Prisma schema file to get all the models.
+
+Mutation Selection: The script then prompts the user to pick one or more mutations for which to create use cases. It only shows mutations for which a use case file does not already exist.
+
+Confirmation and Generation: The script confirms the chosen model and mutations with the user. If the user confirms, the script generates the use case files.
+
+File Generation: The script generates a module file, a resolver file, and use case files for each chosen mutation. It also modifies the resolver and module files to import and use the generated use cases.
+
+Completion: Once all files have been generated, the script informs the user that they're all set.
+
+This script is a powerful tool for rapidly scaffolding use cases for your API, saving you time and ensuring consistency in your codebase.
 
 ## .env file
 
